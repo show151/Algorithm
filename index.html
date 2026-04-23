@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AlgoBoard</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <div class="background-glow background-glow-left"></div>
+    <div class="background-glow background-glow-right"></div>
+
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">PERSONAL LEETCODE</p>
+        <h1>AlgoBoard</h1>
+        <p class="hero-copy">
+          いま書いている LeetCode の解答を、検索できる自分専用の問題集としてまとめるローカルサイト。
+        </p>
+        <div class="hero-stats" id="hero-stats"></div>
+      </section>
+
+      <section class="toolbar">
+        <label class="search">
+          <span>Search</span>
+          <input id="search-input" type="search" placeholder="問題番号、タイトル、タグで検索" />
+        </label>
+        <label class="filter">
+          <span>Category</span>
+          <select id="category-select">
+            <option value="all">All</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span>Difficulty</span>
+          <select id="difficulty-select">
+            <option value="all">All</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+            <option value="Unknown">Unknown</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span>Mode</span>
+          <select id="view-mode-select">
+            <option value="browse">Browse</option>
+            <option value="practice">Practice</option>
+            <option value="solve">Solve</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="content">
+        <aside class="problem-list-panel">
+          <div class="panel-heading">
+            <h2>Problems</h2>
+            <p id="problem-count"></p>
+          </div>
+          <div class="problem-list" id="problem-list"></div>
+        </aside>
+
+        <article class="detail-panel" id="detail-panel">
+          <div class="empty-state">
+            <p class="empty-kicker">Ready</p>
+            <h2>問題を選ぶと詳細を表示します</h2>
+            <p>
+              カテゴリ、難易度、タグ、そして保存済みの Python 解答を 1 画面で確認できます。
+            </p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="assets/app.js" defer></script>
+  </body>
+</html>

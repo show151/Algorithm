@@ -1,0 +1,1221 @@
+{
+  "summary": {
+    "problemCount": 50,
+    "categoryCount": 11,
+    "language": "Python"
+  },
+  "categoryCounts": {
+    "BinarySearch": 4,
+    "DynamicProgramming": 10,
+    "Graph_BFS_DFS": 3,
+    "Greedy+Backtracking": 4,
+    "HashMap": 6,
+    "Heap_PriorityQueue": 3,
+    "LinkedList": 5,
+    "Recursion": 2,
+    "SlidingWindow": 2,
+    "Stack": 2,
+    "Tree_BT_BST": 9
+  },
+  "problems": [
+    {
+      "id": "1",
+      "title": "Two Sum",
+      "category": "HashMap",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table"
+      ],
+      "notes": "",
+      "statement": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+      "statementHtml": "<p>Given an array of integers <code>nums</code>&nbsp;and an integer <code>target</code>, return <em>indices of the two numbers such that they add up to <code>target</code></em>.</p>\n\n<p>You may assume that each input would have <strong><em>exactly</em> one solution</strong>, and you may not use the <em>same</em> element twice.</p>\n\n<p>You can return the answer in any order.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [2,7,11,15], target = 9\n<strong>Output:</strong> [0,1]\n<strong>Explanation:</strong> Because nums[0] + nums[1] == 9, we return [0, 1].\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [3,2,4], target = 6\n<strong>Output:</strong> [1,2]\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [3,3], target = 6\n<strong>Output:</strong> [0,1]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= target &lt;= 10<sup>9</sup></code></li>\n\t<li><strong>Only one valid answer exists.</strong></li>\n</ul>\n\n<p>&nbsp;</p>\n<strong>Follow-up:&nbsp;</strong>Can you come up with an algorithm that is less than <code>O(n<sup>2</sup>)</code><font face=\"monospace\">&nbsp;</font>time complexity?",
+      "examples": [
+        "Example 1:\n\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].",
+        "Example 2:\n\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]",
+        "Example 3:\n\nInput: nums = [3,3], target = 6\nOutput: [0,1]\n\n \n\nConstraints:\n\n\t- `2 <= nums.length <= 104`\n\n\t- `-109 <= nums[i] <= 109`\n\n\t- `-109 <= target <= 109`\n\n\t- Only one valid answer exists.\n\n \n\nFollow-up: Can you come up with an algorithm that is less than `O(n2)` time complexity?"
+      ],
+      "constraints": [
+        "2 <= nums.length <= 10^4",
+        "-10^9 <= nums[i] <= 10^9",
+        "Only one valid answer exists."
+      ],
+      "sourceUrl": "https://leetcode.com/problems/two-sum/",
+      "path": "HashMap/1.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def twoSum(self, nums, target):\n        seen = {}\n\n        for i, num in enumerate(nums):\n            complement = target - num\n            if complement in seen:\n                return [seen[complement], i]\n            seen[num] = i"
+    },
+    {
+      "id": "2",
+      "title": "Add Two Numbers",
+      "category": "LinkedList",
+      "difficulty": "Medium",
+      "tags": [
+        "Linked List",
+        "Math",
+        "Recursion"
+      ],
+      "notes": "",
+      "statement": "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\n\nYou may assume the two numbers do not contain any leading zero, except the number 0 itself.",
+      "statementHtml": "<p>You are given two <strong>non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong>reverse order</strong>, and each of their nodes contains a single digit. Add the two numbers and return the sum&nbsp;as a linked list.</p>\n\n<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg\" style=\"width: 483px; height: 342px;\" />\n<pre>\n<strong>Input:</strong> l1 = [2,4,3], l2 = [5,6,4]\n<strong>Output:</strong> [7,0,8]\n<strong>Explanation:</strong> 342 + 465 = 807.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> l1 = [0], l2 = [0]\n<strong>Output:</strong> [0]\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]\n<strong>Output:</strong> [8,9,9,9,0,0,0,1]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in each linked list is in the range <code>[1, 100]</code>.</li>\n\t<li><code>0 &lt;= Node.val &lt;= 9</code></li>\n\t<li>It is guaranteed that the list represents a number that does not have leading zeros.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: l1 = [2,4,3], l2 = [5,6,4]\nOutput: [7,0,8]\nExplanation: 342 + 465 = 807.",
+        "Example 2:\n\nInput: l1 = [0], l2 = [0]\nOutput: [0]",
+        "Example 3:\n\nInput: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]\nOutput: [8,9,9,9,0,0,0,1]\n\n \n\nConstraints:\n\n\t- The number of nodes in each linked list is in the range `[1, 100]`.\n\n\t- `0 <= Node.val <= 9`\n\n\t- It is guaranteed that the list represents a number that does not have leading zeros."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/add-two-numbers/",
+      "path": "LinkedList/2.py",
+      "language": "Python",
+      "solution": "class ListNode(object):\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n\nclass Solution(object):\n    def addTwoNumbers(self, l1, l2):\n        dummy_head = ListNode(0)\n        tail = dummy_head\n        carry = 0\n\n        while l1 is not None or l2 is not None or carry != 0:\n            digit1 = l1.val if l1 is not None else 0\n            digit2 = l2.val if l2 is not None else 0\n\n            total = digit1 + digit2 + carry\n            digit = total % 10\n            carry = total // 10\n\n            tail.next = ListNode(digit)\n            tail = tail.next\n\n            l1 = l1.next if l1 is not None else None\n            l2 = l2.next if l2 is not None else None\n\n        return dummy_head.next\n"
+    },
+    {
+      "id": "3",
+      "title": "Longest Substring Without Repeating Characters",
+      "category": "SlidingWindow",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "notes": "",
+      "statement": "Given a string `s`, find the length of the longest substring without duplicate characters.",
+      "statementHtml": "<p>Given a string <code>s</code>, find the length of the <strong>longest</strong> <span data-keyword=\"substring-nonempty\"><strong>substring</strong></span> without duplicate characters.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;abcabcbb&quot;\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The answer is &quot;abc&quot;, with the length of 3. Note that <code>&quot;bca&quot;</code> and <code>&quot;cab&quot;</code> are also correct answers.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;bbbbb&quot;\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The answer is &quot;b&quot;, with the length of 1.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;pwwkew&quot;\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The answer is &quot;wke&quot;, with the length of 3.\nNotice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of English letters, digits, symbols and spaces.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: s = \"abcabcbb\"\nOutput: 3\nExplanation: The answer is \"abc\", with the length of 3. Note that `\"bca\"` and `\"cab\"` are also correct answers.",
+        "Example 2:\n\nInput: s = \"bbbbb\"\nOutput: 1\nExplanation: The answer is \"b\", with the length of 1.",
+        "Example 3:\n\nInput: s = \"pwwkew\"\nOutput: 3\nExplanation: The answer is \"wke\", with the length of 3.\nNotice that the answer must be a substring, \"pwke\" is a subsequence and not a substring.\n\n \n\nConstraints:\n\n\t- `0 <= s.length <= 5 * 104`\n\n\t- `s` consists of English letters, digits, symbols and spaces."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+      "path": "SlidingWindow/3.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def lengthOfLongestSubstring(self, s):\n        left = max_length = 0\n        char_set = set()\n        \n        for right in range(len(s)):\n            while s[right] in char_set:\n                char_set.remove(s[left])\n                left += 1\n\n            char_set.add(s[right])\n            max_length = max(max_length, right - left + 1)\n        \n        return max_length"
+    },
+    {
+      "id": "20",
+      "title": "Valid Parentheses",
+      "category": "Stack",
+      "difficulty": "Easy",
+      "tags": [
+        "String",
+        "Stack"
+      ],
+      "notes": "",
+      "statement": "Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.\n\nAn input string is valid if:\n\n\t- Open brackets must be closed by the same type of brackets.\n\n\t- Open brackets must be closed in the correct order.\n\n\t- Every close bracket has a corresponding open bracket of the same type.",
+      "statementHtml": "<p>Given a string <code>s</code> containing just the characters <code>&#39;(&#39;</code>, <code>&#39;)&#39;</code>, <code>&#39;{&#39;</code>, <code>&#39;}&#39;</code>, <code>&#39;[&#39;</code> and <code>&#39;]&#39;</code>, determine if the input string is valid.</p>\n\n<p>An input string is valid if:</p>\n\n<ol>\n\t<li>Open brackets must be closed by the same type of brackets.</li>\n\t<li>Open brackets must be closed in the correct order.</li>\n\t<li>Every close bracket has a corresponding open bracket of the same type.</li>\n</ol>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;()&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">true</span></p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;()[]{}&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">true</span></p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;(]&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">false</span></p>\n</div>\n\n<p><strong class=\"example\">Example 4:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;([])&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">true</span></p>\n</div>\n\n<p><strong class=\"example\">Example 5:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;([)]&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">false</span></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of parentheses only <code>&#39;()[]{}&#39;</code>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: s = \"()\"\n\nOutput: true",
+        "Example 2:\n\nInput: s = \"()[]{}\"\n\nOutput: true",
+        "Example 3:\n\nInput: s = \"(]\"\n\nOutput: false",
+        "Example 4:\n\nInput: s = \"([])\"\n\nOutput: true",
+        "Example 5:\n\nInput: s = \"([)]\"\n\nOutput: false\n\n \n\nConstraints:\n\n\t- `1 <= s.length <= 104`\n\n\t- `s` consists of parentheses only `'()[]{}'`."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/valid-parentheses/",
+      "path": "Stack/20.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def isValid(self, s):\n        pair = {\"(\": \")\", \"[\": \"]\", \"{\": \"}\"}\n        stack = []\n\n        for ch in s:\n            if ch in pair:\n                stack.append(ch)\n            else:\n                if not stack or ch != pair[stack.pop()]:\n                    return False\n\n        return len(stack) == 0\n"
+    },
+    {
+      "id": "22",
+      "title": "Generate Parentheses",
+      "category": "Greedy+Backtracking",
+      "difficulty": "Medium",
+      "tags": [
+        "String",
+        "Dynamic Programming",
+        "Backtracking"
+      ],
+      "notes": "",
+      "statement": "Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+      "statementHtml": "<p>Given <code>n</code> pairs of parentheses, write a function to <em>generate all combinations of well-formed parentheses</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> n = 3\n<strong>Output:</strong> [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> n = 1\n<strong>Output:</strong> [\"()\"]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 8</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: n = 3\nOutput: [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]",
+        "Example 2:\n\nInput: n = 1\nOutput: [\"()\"]\n\n \n\nConstraints:\n\n\t- `1 <= n <= 8`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/generate-parentheses/",
+      "path": "Greedy+Backtracking/22.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def generateParenthesis(self, n):\n        res = []\n\n        def dfs(openP, closeP, s):\n            if openP == closeP and openP + closeP == n * 2:\n                res.append(s)\n                return\n            \n            if openP < n:\n                dfs(openP + 1, closeP, s + \"(\")\n            \n            if closeP < openP:\n                dfs(openP, closeP + 1, s + \")\")\n\n        dfs(0, 0, \"\")\n\n        return res"
+    },
+    {
+      "id": "33",
+      "title": "Search in Rotated Sorted Array",
+      "category": "BinarySearch",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "notes": "",
+      "statement": "There is an integer array `nums` sorted in ascending order (with distinct values).\n\nPrior to being passed to your function, `nums` is possibly left rotated at an unknown index `k` (`1 <= k < nums.length`) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]` (0-indexed). For example, `[0,1,2,4,5,6,7]` might be left rotated by `3` indices and become `[4,5,6,7,0,1,2]`.\n\nGiven the array `nums` after the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`.\n\nYou must write an algorithm with `O(log n)` runtime complexity.",
+      "statementHtml": "<p>There is an integer array <code>nums</code> sorted in ascending order (with <strong>distinct</strong> values).</p>\n\n<p>Prior to being passed to your function, <code>nums</code> is <strong>possibly left rotated</strong> at an unknown index <code>k</code> (<code>1 &lt;= k &lt; nums.length</code>) such that the resulting array is <code>[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]</code> (<strong>0-indexed</strong>). For example, <code>[0,1,2,4,5,6,7]</code> might be left rotated by&nbsp;<code>3</code>&nbsp;indices and become <code>[4,5,6,7,0,1,2]</code>.</p>\n\n<p>Given the array <code>nums</code> <strong>after</strong> the possible rotation and an integer <code>target</code>, return <em>the index of </em><code>target</code><em> if it is in </em><code>nums</code><em>, or </em><code>-1</code><em> if it is not in </em><code>nums</code>.</p>\n\n<p>You must write an algorithm with <code>O(log n)</code> runtime complexity.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [4,5,6,7,0,1,2], target = 0\n<strong>Output:</strong> 4\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [4,5,6,7,0,1,2], target = 3\n<strong>Output:</strong> -1\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> nums = [1], target = 0\n<strong>Output:</strong> -1\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 5000</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li>All values of <code>nums</code> are <strong>unique</strong>.</li>\n\t<li><code>nums</code> is an ascending array that is possibly rotated.</li>\n\t<li><code>-10<sup>4</sup> &lt;= target &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [4,5,6,7,0,1,2], target = 0\nOutput: 4",
+        "Example 2:\n\nInput: nums = [4,5,6,7,0,1,2], target = 3\nOutput: -1",
+        "Example 3:\n\nInput: nums = [1], target = 0\nOutput: -1\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 5000`\n\n\t- `-104 <= nums[i] <= 104`\n\n\t- All values of `nums` are unique.\n\n\t- `nums` is an ascending array that is possibly rotated.\n\n\t- `-104 <= target <= 104`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+      "path": "BinarySearch/33.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def search(self, nums, target):\n\n        left = 0\n        right = len(nums) - 1\n\n        while left <= right:\n            mid = (left + right) // 2\n\n            if nums[mid] == target:\n                return mid\n            elif nums[mid] >= nums[left]:\n                if nums[left] <= target <= nums[mid]:\n                    right = mid - 1\n                else:\n                    left = mid + 1\n            else:\n                if nums[mid] <= target <= nums[right]:\n                    left = mid + 1\n                else:\n                    right = mid - 1\n        \n        return -1"
+    },
+    {
+      "id": "35",
+      "title": "Search Insert Position",
+      "category": "BinarySearch",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "notes": "",
+      "statement": "Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\n\nYou must write an algorithm with `O(log n)` runtime complexity.",
+      "statementHtml": "<p>Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>\n\n<p>You must&nbsp;write an algorithm with&nbsp;<code>O(log n)</code> runtime complexity.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,3,5,6], target = 5\n<strong>Output:</strong> 2\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,3,5,6], target = 2\n<strong>Output:</strong> 1\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,3,5,6], target = 7\n<strong>Output:</strong> 4\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>nums</code> contains <strong>distinct</strong> values sorted in <strong>ascending</strong> order.</li>\n\t<li><code>-10<sup>4</sup> &lt;= target &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [1,3,5,6], target = 5\nOutput: 2",
+        "Example 2:\n\nInput: nums = [1,3,5,6], target = 2\nOutput: 1",
+        "Example 3:\n\nInput: nums = [1,3,5,6], target = 7\nOutput: 4\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 104`\n\n\t- `-104 <= nums[i] <= 104`\n\n\t- `nums` contains distinct values sorted in ascending order.\n\n\t- `-104 <= target <= 104`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/search-insert-position/",
+      "path": "BinarySearch/35.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def searchInsert(self, nums, target):\n        l, r = 0, len(nums)-1\n\n        while l <= r:\n            mid = (l + r) // 2\n\n            if nums[mid] == target:\n                return mid\n            elif nums[mid] < target:\n                l = mid + 1\n            else:\n                r = mid - 1\n        \n        return l"
+    },
+    {
+      "id": "39",
+      "title": "Combination Sum",
+      "category": "Greedy+Backtracking",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Backtracking"
+      ],
+      "notes": "",
+      "statement": "Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. You may return the combinations in any order.\n\nThe same number may be chosen from `candidates` an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.\n\nThe test cases are generated such that the number of unique combinations that sum up to `target` is less than `150` combinations for the given input.",
+      "statementHtml": "<p>Given an array of <strong>distinct</strong> integers <code>candidates</code> and a target integer <code>target</code>, return <em>a list of all <strong>unique combinations</strong> of </em><code>candidates</code><em> where the chosen numbers sum to </em><code>target</code><em>.</em> You may return the combinations in <strong>any order</strong>.</p>\n\n<p>The <strong>same</strong> number may be chosen from <code>candidates</code> an <strong>unlimited number of times</strong>. Two combinations are unique if the <span data-keyword=\"frequency-array\">frequency</span> of at least one of the chosen numbers is different.</p>\n\n<p>The test cases are generated such that the number of unique combinations that sum up to <code>target</code> is less than <code>150</code> combinations for the given input.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> candidates = [2,3,6,7], target = 7\n<strong>Output:</strong> [[2,2,3],[7]]\n<strong>Explanation:</strong>\n2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.\n7 is a candidate, and 7 = 7.\nThese are the only two combinations.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> candidates = [2,3,5], target = 8\n<strong>Output:</strong> [[2,2,2,2],[2,3,3],[3,5]]\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> candidates = [2], target = 1\n<strong>Output:</strong> []\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= candidates.length &lt;= 30</code></li>\n\t<li><code>2 &lt;= candidates[i] &lt;= 40</code></li>\n\t<li>All elements of <code>candidates</code> are <strong>distinct</strong>.</li>\n\t<li><code>1 &lt;= target &lt;= 40</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: candidates = [2,3,6,7], target = 7\nOutput: [[2,2,3],[7]]\nExplanation:\n2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.\n7 is a candidate, and 7 = 7.\nThese are the only two combinations.",
+        "Example 2:\n\nInput: candidates = [2,3,5], target = 8\nOutput: [[2,2,2,2],[2,3,3],[3,5]]",
+        "Example 3:\n\nInput: candidates = [2], target = 1\nOutput: []\n\n \n\nConstraints:\n\n\t- `1 <= candidates.length <= 30`\n\n\t- `2 <= candidates[i] <= 40`\n\n\t- All elements of `candidates` are distinct.\n\n\t- `1 <= target <= 40`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/combination-sum/",
+      "path": "Greedy+Backtracking/39.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def combinationSum(self, candidates, target):\n            \n        res = []\n\n        def make_combination(idx, comb, total):\n            if total == target:\n                res.append(comb[:])\n                return\n            \n            if total > target or idx >= len(candidates):\n                return\n            \n            comb.append(candidates[idx])\n            make_combination(idx, comb, total + candidates[idx])\n            comb.pop()\n            make_combination(idx+1, comb, total)\n\n            return res\n\n        return make_combination(0, [], 0)"
+    },
+    {
+      "id": "46",
+      "title": "Permutations",
+      "category": "Greedy+Backtracking",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Backtracking"
+      ],
+      "notes": "",
+      "statement": "Given an array `nums` of distinct integers, return all the possible permutations. You can return the answer in any order.",
+      "statementHtml": "<p>Given an array <code>nums</code> of distinct integers, return all the possible <span data-keyword=\"permutation-array\">permutations</span>. You can return the answer in <strong>any order</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,3]\n<strong>Output:</strong> [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [0,1]\n<strong>Output:</strong> [[0,1],[1,0]]\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> nums = [1]\n<strong>Output:</strong> [[1]]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 6</code></li>\n\t<li><code>-10 &lt;= nums[i] &lt;= 10</code></li>\n\t<li>All the integers of <code>nums</code> are <strong>unique</strong>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [1,2,3]\nOutput: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]",
+        "Example 2:\n\nInput: nums = [0,1]\nOutput: [[0,1],[1,0]]",
+        "Example 3:\n\nInput: nums = [1]\nOutput: [[1]]\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 6`\n\n\t- `-10 <= nums[i] <= 10`\n\n\t- All the integers of `nums` are unique."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/permutations/",
+      "path": "Greedy+Backtracking/46.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def permute(self, nums):\n        if len(nums) == 1:\n            return [nums[:]]\n        \n        res = []\n\n        for _ in range(len(nums)):\n            n = nums.pop(0)\n            perms = self.permute(nums)\n\n            for p in perms:\n                p.append(n)\n            \n            res.extend(perms)\n            nums.append(n)\n        \n        return res\n            "
+    },
+    {
+      "id": "49",
+      "title": "Group Anagrams",
+      "category": "HashMap",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "notes": "",
+      "statement": "Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.",
+      "statementHtml": "<p>Given an array of strings <code>strs</code>, group the <span data-keyword=\"anagram\">anagrams</span> together. You can return the answer in <strong>any order</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">strs = [&quot;eat&quot;,&quot;tea&quot;,&quot;tan&quot;,&quot;ate&quot;,&quot;nat&quot;,&quot;bat&quot;]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[[&quot;bat&quot;],[&quot;nat&quot;,&quot;tan&quot;],[&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;]]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>There is no string in strs that can be rearranged to form <code>&quot;bat&quot;</code>.</li>\n\t<li>The strings <code>&quot;nat&quot;</code> and <code>&quot;tan&quot;</code> are anagrams as they can be rearranged to form each other.</li>\n\t<li>The strings <code>&quot;ate&quot;</code>, <code>&quot;eat&quot;</code>, and <code>&quot;tea&quot;</code> are anagrams as they can be rearranged to form each other.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">strs = [&quot;&quot;]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[[&quot;&quot;]]</span></p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">strs = [&quot;a&quot;]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[[&quot;a&quot;]]</span></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= strs.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= strs[i].length &lt;= 100</code></li>\n\t<li><code>strs[i]</code> consists of lowercase English letters.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]\n\nOutput: [[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]\n\nExplanation:\n\n\t- There is no string in strs that can be rearranged to form `\"bat\"`.\n\n\t- The strings `\"nat\"` and `\"tan\"` are anagrams as they can be rearranged to form each other.\n\n\t- The strings `\"ate\"`, `\"eat\"`, and `\"tea\"` are anagrams as they can be rearranged to form each other.",
+        "Example 2:\n\nInput: strs = [\"\"]\n\nOutput: [[\"\"]]",
+        "Example 3:\n\nInput: strs = [\"a\"]\n\nOutput: [[\"a\"]]\n\n \n\nConstraints:\n\n\t- `1 <= strs.length <= 104`\n\n\t- `0 <= strs[i].length <= 100`\n\n\t- `strs[i]` consists of lowercase English letters."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/group-anagrams/",
+      "path": "HashMap/49.py",
+      "language": "Python",
+      "solution": "from collections import defaultdict\n\nclass Solution(object):\n    def groupAnagrams(self, strs):\n        ans = defaultdict(list)\n\n        for s in strs:\n            count = [0] * 26\n            for c in s:\n                count[ord(c) - ord(\"a\")] += 1\n            ans[tuple(count)].append(s)\n\n        return list(ans.values())"
+    },
+    {
+      "id": "50",
+      "title": "Pow(x, n)",
+      "category": "Recursion",
+      "difficulty": "Medium",
+      "tags": [
+        "Math",
+        "Recursion"
+      ],
+      "notes": "",
+      "statement": "Implement pow(x, n), which calculates `x` raised to the power `n` (i.e., `xn`).",
+      "statementHtml": "<p>Implement <a href=\"http://www.cplusplus.com/reference/valarray/pow/\" target=\"_blank\">pow(x, n)</a>, which calculates <code>x</code> raised to the power <code>n</code> (i.e., <code>x<sup>n</sup></code>).</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> x = 2.00000, n = 10\n<strong>Output:</strong> 1024.00000\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> x = 2.10000, n = 3\n<strong>Output:</strong> 9.26100\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> x = 2.00000, n = -2\n<strong>Output:</strong> 0.25000\n<strong>Explanation:</strong> 2<sup>-2</sup> = 1/2<sup>2</sup> = 1/4 = 0.25\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>-100.0 &lt; x &lt; 100.0</code></li>\n\t<li><code>-2<sup>31</sup> &lt;= n &lt;= 2<sup>31</sup>-1</code></li>\n\t<li><code>n</code> is an integer.</li>\n\t<li>Either <code>x</code> is not zero or <code>n &gt; 0</code>.</li>\n\t<li><code>-10<sup>4</sup> &lt;= x<sup>n</sup> &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: x = 2.00000, n = 10\nOutput: 1024.00000",
+        "Example 2:\n\nInput: x = 2.10000, n = 3\nOutput: 9.26100",
+        "Example 3:\n\nInput: x = 2.00000, n = -2\nOutput: 0.25000\nExplanation: 2-2 = 1/22 = 1/4 = 0.25\n\n \n\nConstraints:\n\n\t- `-100.0 < x < 100.0`\n\n\t- `-231 <= n <= 231-1`\n\n\t- `n` is an integer.\n\n\t- Either `x` is not zero or `n > 0`.\n\n\t- `-104 <= xn <= 104`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/powx-n/",
+      "path": "Recursion/50.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def myPow(self, x, n):\n        if n == 0:\n            return 1\n        \n        if n < 0:\n            x = 1 / x\n            n = -n\n        \n        result = 1\n        \n        while n:\n            if n % 2 == 1:\n                result *= x\n            \n            x *= x\n            n //= 2\n        \n        return result"
+    },
+    {
+      "id": "53",
+      "title": "Maximum Subarray",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Divide and Conquer",
+        "Dynamic Programming"
+      ],
+      "notes": "",
+      "statement": "Given an integer array `nums`, find the subarray with the largest sum, and return its sum.",
+      "statementHtml": "<p>Given an integer array <code>nums</code>, find the <span data-keyword=\"subarray-nonempty\">subarray</span> with the largest sum, and return <em>its sum</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [-2,1,-3,4,-1,2,1,-5,4]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The subarray [4,-1,2,1] has the largest sum 6.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The subarray [1] has the largest sum 1.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [5,4,-1,7,8]\n<strong>Output:</strong> 23\n<strong>Explanation:</strong> The subarray [5,4,-1,7,8] has the largest sum 23.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow up:</strong> If you have figured out the <code>O(n)</code> solution, try coding another solution using the <strong>divide and conquer</strong> approach, which is more subtle.</p>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [-2,1,-3,4,-1,2,1,-5,4]\nOutput: 6\nExplanation: The subarray [4,-1,2,1] has the largest sum 6.",
+        "Example 2:\n\nInput: nums = [1]\nOutput: 1\nExplanation: The subarray [1] has the largest sum 1.",
+        "Example 3:\n\nInput: nums = [5,4,-1,7,8]\nOutput: 23\nExplanation: The subarray [5,4,-1,7,8] has the largest sum 23.\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 105`\n\n\t- `-104 <= nums[i] <= 104`\n\n \n\nFollow up: If you have figured out the `O(n)` solution, try coding another solution using the divide and conquer approach, which is more subtle."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/maximum-subarray/",
+      "path": "DynamicProgramming/53.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def maxSubArray(self, nums):            \n        res = nums[0]\n        total = 0\n\n        for n in nums:\n            if total < 0:\n                total = 0\n\n            total += n\n            res = max(res, total)\n        \n        return res"
+    },
+    {
+      "id": "62",
+      "title": "Unique Paths",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Math",
+        "Dynamic Programming",
+        "Combinatorics"
+      ],
+      "notes": "",
+      "statement": "There is a robot on an `m x n` grid. The robot is initially located at the top-left corner (i.e., `grid[0][0]`). The robot tries to move to the bottom-right corner (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.\n\nGiven the two integers `m` and `n`, return the number of possible unique paths that the robot can take to reach the bottom-right corner.\n\nThe test cases are generated so that the answer will be less than or equal to `2 * 109`.",
+      "statementHtml": "<p>There is a robot on an <code>m x n</code> grid. The robot is initially located at the <strong>top-left corner</strong> (i.e., <code>grid[0][0]</code>). The robot tries to move to the <strong>bottom-right corner</strong> (i.e., <code>grid[m - 1][n - 1]</code>). The robot can only move either down or right at any point in time.</p>\n\n<p>Given the two integers <code>m</code> and <code>n</code>, return <em>the number of possible unique paths that the robot can take to reach the bottom-right corner</em>.</p>\n\n<p>The test cases are generated so that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img src=\"https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png\" style=\"width: 400px; height: 183px;\" />\n<pre>\n<strong>Input:</strong> m = 3, n = 7\n<strong>Output:</strong> 28\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> m = 3, n = 2\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:\n1. Right -&gt; Down -&gt; Down\n2. Down -&gt; Down -&gt; Right\n3. Down -&gt; Right -&gt; Down\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= m, n &lt;= 100</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: m = 3, n = 7\nOutput: 28",
+        "Example 2:\n\nInput: m = 3, n = 2\nOutput: 3\nExplanation: From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:\n1. Right -> Down -> Down\n2. Down -> Down -> Right\n3. Down -> Right -> Down\n\n \n\nConstraints:\n\n\t- `1 <= m, n <= 100`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/unique-paths/",
+      "path": "DynamicProgramming/62.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def uniquePaths(self, m, n):\n        \n        aboveRow = [1] * n\n\n        for _ in range(m - 1):\n            currentRow = [1] * n\n            for i in range(1, n):\n                currentRow[i] = currentRow[i-1] + aboveRow[i]\n            aboveRow = currentRow\n        \n        return aboveRow[-1]"
+    },
+    {
+      "id": "63",
+      "title": "Unique Paths II",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Matrix"
+      ],
+      "notes": "",
+      "statement": "You are given an `m x n` integer array `grid`. There is a robot initially located at the top-left corner (i.e., `grid[0][0]`). The robot tries to move to the bottom-right corner (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.\n\nAn obstacle and space are marked as `1` or `0` respectively in `grid`. A path that the robot takes cannot include any square that is an obstacle.\n\nReturn the number of possible unique paths that the robot can take to reach the bottom-right corner.\n\nThe testcases are generated so that the answer will be less than or equal to `2 * 109`.",
+      "statementHtml": "<p>You are given an <code>m x n</code> integer array <code>grid</code>. There is a robot initially located at the <b>top-left corner</b> (i.e., <code>grid[0][0]</code>). The robot tries to move to the <strong>bottom-right corner</strong> (i.e., <code>grid[m - 1][n - 1]</code>). The robot can only move either down or right at any point in time.</p>\n\n<p>An obstacle and space are marked as <code>1</code> or <code>0</code> respectively in <code>grid</code>. A path that the robot takes cannot include <strong>any</strong> square that is an obstacle.</p>\n\n<p>Return <em>the number of possible unique paths that the robot can take to reach the bottom-right corner</em>.</p>\n\n<p>The testcases are generated so that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/11/04/robot1.jpg\" style=\"width: 242px; height: 242px;\" />\n<pre>\n<strong>Input:</strong> obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> There is one obstacle in the middle of the 3x3 grid above.\nThere are two ways to reach the bottom-right corner:\n1. Right -&gt; Right -&gt; Down -&gt; Down\n2. Down -&gt; Down -&gt; Right -&gt; Right\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/11/04/robot2.jpg\" style=\"width: 162px; height: 162px;\" />\n<pre>\n<strong>Input:</strong> obstacleGrid = [[0,1],[0,0]]\n<strong>Output:</strong> 1\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == obstacleGrid.length</code></li>\n\t<li><code>n == obstacleGrid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 100</code></li>\n\t<li><code>obstacleGrid[i][j]</code> is <code>0</code> or <code>1</code>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]\nOutput: 2\nExplanation: There is one obstacle in the middle of the 3x3 grid above.\nThere are two ways to reach the bottom-right corner:\n1. Right -> Right -> Down -> Down\n2. Down -> Down -> Right -> Right",
+        "Example 2:\n\nInput: obstacleGrid = [[0,1],[0,0]]\nOutput: 1\n\n \n\nConstraints:\n\n\t- `m == obstacleGrid.length`\n\n\t- `n == obstacleGrid[i].length`\n\n\t- `1 <= m, n <= 100`\n\n\t- `obstacleGrid[i][j]` is `0` or `1`."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/unique-paths-ii/",
+      "path": "DynamicProgramming/63.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def uniquePathsWithObstacles(self, obstacleGrid):\n        if not obstacleGrid or obstacleGrid[0][0] == 1:\n            return 0\n\n        rows, cols = len(obstacleGrid), len(obstacleGrid[0])\n        dp = [0] * cols\n        dp[0] = 1\n\n        for r in range(rows):\n            for c in range(cols):\n                if obstacleGrid[r][c] == 1:\n                    dp[c] = 0\n                else:\n                    if c > 0:\n                        dp[c] += dp[c - 1]\n\n        return dp[cols - 1] "
+    },
+    {
+      "id": "78",
+      "title": "Subsets",
+      "category": "Greedy+Backtracking",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Backtracking",
+        "Bit Manipulation"
+      ],
+      "notes": "",
+      "statement": "Given an integer array `nums` of unique elements, return all possible subsets (the power set).\n\nThe solution set must not contain duplicate subsets. Return the solution in any order.",
+      "statementHtml": "<p>Given an integer array <code>nums</code> of <strong>unique</strong> elements, return <em>all possible</em> <span data-keyword=\"subset\"><em>subsets</em></span> <em>(the power set)</em>.</p>\n\n<p>The solution set <strong>must not</strong> contain duplicate subsets. Return the solution in <strong>any order</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,2,3]\n<strong>Output:</strong> [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [0]\n<strong>Output:</strong> [[],[0]]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10</code></li>\n\t<li><code>-10 &lt;= nums[i] &lt;= 10</code></li>\n\t<li>All the numbers of&nbsp;<code>nums</code> are <strong>unique</strong>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [1,2,3]\nOutput: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]",
+        "Example 2:\n\nInput: nums = [0]\nOutput: [[],[0]]\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 10`\n\n\t- `-10 <= nums[i] <= 10`\n\n\t- All the numbers of `nums` are unique."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/subsets/",
+      "path": "Greedy+Backtracking/78.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def subsets(self, nums):\n        res = []\n        subset = []\n\n        def create_subset(i):\n            if i == len(nums):\n                res.append(subset[:])\n                return\n            \n            subset.append(nums[i])\n            create_subset(i+1)\n\n            subset.pop()\n            create_subset(i+1)\n\n        create_subset(0)\n        return res"
+    },
+    {
+      "id": "82",
+      "title": "Remove Duplicates from Sorted List II",
+      "category": "LinkedList",
+      "difficulty": "Medium",
+      "tags": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "notes": "",
+      "statement": "Given the `head` of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.",
+      "statementHtml": "<p>Given the <code>head</code> of a sorted linked list, <em>delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list</em>. Return <em>the linked list <strong>sorted</strong> as well</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/04/linkedlist1.jpg\" style=\"width: 500px; height: 142px;\" />\n<pre>\n<strong>Input:</strong> head = [1,2,3,3,4,4,5]\n<strong>Output:</strong> [1,2,5]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/04/linkedlist2.jpg\" style=\"width: 500px; height: 205px;\" />\n<pre>\n<strong>Input:</strong> head = [1,1,1,2,3]\n<strong>Output:</strong> [2,3]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is in the range <code>[0, 300]</code>.</li>\n\t<li><code>-100 &lt;= Node.val &lt;= 100</code></li>\n\t<li>The list is guaranteed to be <strong>sorted</strong> in ascending order.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: head = [1,2,3,3,4,4,5]\nOutput: [1,2,5]",
+        "Example 2:\n\nInput: head = [1,1,1,2,3]\nOutput: [2,3]\n\n \n\nConstraints:\n\n\t- The number of nodes in the list is in the range `[0, 300]`.\n\n\t- `-100 <= Node.val <= 100`\n\n\t- The list is guaranteed to be sorted in ascending order."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/",
+      "path": "LinkedList/82.py",
+      "language": "Python",
+      "solution": "class ListNode(object):\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n\nclass Solution(object):\n    def deleteDuplicates(self, head):\n        dummy = ListNode(0)\n        dummy.next = head\n        pre = dummy\n\n        while head and head.next:\n            if head.val == head.next.val:\n                while head and head.next and head.val == head.next.val:\n                    head = head.next\n\n                head = head.next\n                pre.next = head\n            else:\n                pre = pre.next\n                head = head.next\n\n        return dummy.next\n"
+    },
+    {
+      "id": "83",
+      "title": "Remove Duplicates from Sorted List",
+      "category": "LinkedList",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List"
+      ],
+      "notes": "",
+      "statement": "Given the `head` of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.",
+      "statementHtml": "<p>Given the <code>head</code> of a sorted linked list, <em>delete all duplicates such that each element appears only once</em>. Return <em>the linked list <strong>sorted</strong> as well</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/04/list1.jpg\" style=\"width: 302px; height: 242px;\" />\n<pre>\n<strong>Input:</strong> head = [1,1,2]\n<strong>Output:</strong> [1,2]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/04/list2.jpg\" style=\"width: 542px; height: 222px;\" />\n<pre>\n<strong>Input:</strong> head = [1,1,2,3,3]\n<strong>Output:</strong> [1,2,3]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is in the range <code>[0, 300]</code>.</li>\n\t<li><code>-100 &lt;= Node.val &lt;= 100</code></li>\n\t<li>The list is guaranteed to be <strong>sorted</strong> in ascending order.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: head = [1,1,2]\nOutput: [1,2]",
+        "Example 2:\n\nInput: head = [1,1,2,3,3]\nOutput: [1,2,3]\n\n \n\nConstraints:\n\n\t- The number of nodes in the list is in the range `[0, 300]`.\n\n\t- `-100 <= Node.val <= 100`\n\n\t- The list is guaranteed to be sorted in ascending order."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/remove-duplicates-from-sorted-list/",
+      "path": "LinkedList/83.py",
+      "language": "Python",
+      "solution": "class ListNode(object):\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n\nclass Solution(object):\n    def deleteDuplicates(self, head):\n        res = head\n\n        while head and head.next:\n            if head.val == head.next.val:\n                head.next = head.next.next\n            else:\n                head = head.next\n\n        return res\n"
+    },
+    {
+      "id": "98",
+      "title": "Validate Binary Search Tree",
+      "category": "Tree_BT_BST",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given the `root` of a binary tree, determine if it is a valid binary search tree (BST).\n\nA valid BST is defined as follows:\n\n\t- The left subtree of a node contains only nodes with keys strictly less than the node's key.\n\n\t- The right subtree of a node contains only nodes with keys strictly greater than the node's key.\n\n\t- Both the left and right subtrees must also be binary search trees.",
+      "statementHtml": "<p>Given the <code>root</code> of a binary tree, <em>determine if it is a valid binary search tree (BST)</em>.</p>\n\n<p>A <strong>valid BST</strong> is defined as follows:</p>\n\n<ul>\n\t<li>The left <span data-keyword=\"subtree\">subtree</span> of a node contains only nodes with keys&nbsp;<strong>strictly less than</strong> the node&#39;s key.</li>\n\t<li>The right subtree of a node contains only nodes with keys <strong>strictly greater than</strong> the node&#39;s key.</li>\n\t<li>Both the left and right subtrees must also be binary search trees.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg\" style=\"width: 302px; height: 182px;\" />\n<pre>\n<strong>Input:</strong> root = [2,1,3]\n<strong>Output:</strong> true\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg\" style=\"width: 422px; height: 292px;\" />\n<pre>\n<strong>Input:</strong> root = [5,1,4,null,null,3,6]\n<strong>Output:</strong> false\n<strong>Explanation:</strong> The root node&#39;s value is 5 but its right child&#39;s value is 4.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-2<sup>31</sup> &lt;= Node.val &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root = [2,1,3]\nOutput: true",
+        "Example 2:\n\nInput: root = [5,1,4,null,null,3,6]\nOutput: false\nExplanation: The root node's value is 5 but its right child's value is 4.\n\n \n\nConstraints:\n\n\t- The number of nodes in the tree is in the range `[1, 104]`.\n\n\t- `-231 <= Node.val <= 231 - 1`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/validate-binary-search-tree/",
+      "path": "Tree_BT_BST/98.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def isValidBST(self, root):\n        \n        def valid(node, minimum, maximum):\n            if not node:\n                return True\n            \n            if not (node.val > minimum and node.val < maximum):\n                return False\n            \n            return valid(node.left, minimum, node.val) and valid(node.right, node.val, maximum)\n        \n        return valid(root, float(\"-inf\"), float(\"inf\"))"
+    },
+    {
+      "id": "102",
+      "title": "Binary Tree Level Order Traversal",
+      "category": "Tree_BT_BST",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+      "statementHtml": "<p>Given the <code>root</code> of a binary tree, return <em>the level order traversal of its nodes&#39; values</em>. (i.e., from left to right, level by level).</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg\" style=\"width: 277px; height: 302px;\" />\n<pre>\n<strong>Input:</strong> root = [3,9,20,null,null,15,7]\n<strong>Output:</strong> [[3],[9,20],[15,7]]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = [1]\n<strong>Output:</strong> [[1]]\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = []\n<strong>Output:</strong> []\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[0, 2000]</code>.</li>\n\t<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root = [3,9,20,null,null,15,7]\nOutput: [[3],[9,20],[15,7]]",
+        "Example 2:\n\nInput: root = [1]\nOutput: [[1]]",
+        "Example 3:\n\nInput: root = []\nOutput: []\n\n \n\nConstraints:\n\n\t- The number of nodes in the tree is in the range `[0, 2000]`.\n\n\t- `-1000 <= Node.val <= 1000`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+      "path": "Tree_BT_BST/102.py",
+      "language": "Python",
+      "solution": "import collections\nclass Solution(object):\n    def levelOrder(self, root):\n        \n        res = []\n\n        if not root:\n            return res\n        \n        q = collections.deque()\n        q.append(root)\n    \n        while q:\n            same_level = []\n\n            for _ in range(len(q)):\n                node = q.popleft()\n                same_level.append(node.val)\n\n                if node.left:\n                    q.append(node.left)\n                if node.right:\n                    q.append(node.right)\n            \n            res.append(same_level)\n        \n        return res"
+    },
+    {
+      "id": "103",
+      "title": "Binary Tree Zigzag Level Order Traversal",
+      "category": "Tree_BT_BST",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given the `root` of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).",
+      "statementHtml": "<p>Given the <code>root</code> of a binary tree, return <em>the zigzag level order traversal of its nodes&#39; values</em>. (i.e., from left to right, then right to left for the next level and alternate between).</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg\" style=\"width: 277px; height: 302px;\" />\n<pre>\n<strong>Input:</strong> root = [3,9,20,null,null,15,7]\n<strong>Output:</strong> [[3],[20,9],[15,7]]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = [1]\n<strong>Output:</strong> [[1]]\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = []\n<strong>Output:</strong> []\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[0, 2000]</code>.</li>\n\t<li><code>-100 &lt;= Node.val &lt;= 100</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root = [3,9,20,null,null,15,7]\nOutput: [[3],[20,9],[15,7]]",
+        "Example 2:\n\nInput: root = [1]\nOutput: [[1]]",
+        "Example 3:\n\nInput: root = []\nOutput: []\n\n \n\nConstraints:\n\n\t- The number of nodes in the tree is in the range `[0, 2000]`.\n\n\t- `-100 <= Node.val <= 100`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
+      "path": "Tree_BT_BST/103.py",
+      "language": "Python",
+      "solution": "import collections\nclass Solution(object):\n    def zigzagLevelOrder(self, root):\n        \n        if not root:\n            return []\n\n        result = []\n        queue = collections.deque([root])\n        is_left_to_right = True\n\n        while queue:\n            level_size = len(queue)\n            current_level = [0] * level_size\n\n            for i in range(level_size):\n                node = queue.popleft()\n                index = i if is_left_to_right else level_size - 1 - i\n                current_level[index] = node.val\n\n                if node.left:\n                    queue.append(node.left)\n                if node.right:\n                    queue.append(node.right)\n\n            result.append(current_level)\n            is_left_to_right = not is_left_to_right\n\n        return result"
+    },
+    {
+      "id": "104",
+      "title": "Maximum Depth of Binary Tree",
+      "category": "Tree_BT_BST",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given the `root` of a binary tree, return its maximum depth.\n\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+      "statementHtml": "<p>Given the <code>root</code> of a binary tree, return <em>its maximum depth</em>.</p>\n\n<p>A binary tree&#39;s <strong>maximum depth</strong>&nbsp;is the number of nodes along the longest path from the root node down to the farthest leaf node.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/11/26/tmp-tree.jpg\" style=\"width: 400px; height: 277px;\" />\n<pre>\n<strong>Input:</strong> root = [3,9,20,null,null,15,7]\n<strong>Output:</strong> 3\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = [1,null,2]\n<strong>Output:</strong> 2\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[0, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-100 &lt;= Node.val &lt;= 100</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root = [3,9,20,null,null,15,7]\nOutput: 3",
+        "Example 2:\n\nInput: root = [1,null,2]\nOutput: 2\n\n \n\nConstraints:\n\n\t- The number of nodes in the tree is in the range `[0, 104]`.\n\n\t- `-100 <= Node.val <= 100`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+      "path": "Tree_BT_BST/104.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def maxDepth(self, root):\n        if not root:\n            return 0\n        \n        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right)) "
+    },
+    {
+      "id": "105",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "category": "Tree_BT_BST",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Divide and Conquer",
+        "Tree",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.",
+      "statementHtml": "<p>Given two integer arrays <code>preorder</code> and <code>inorder</code> where <code>preorder</code> is the preorder traversal of a binary tree and <code>inorder</code> is the inorder traversal of the same tree, construct and return <em>the binary tree</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/19/tree.jpg\" style=\"width: 277px; height: 302px;\" />\n<pre>\n<strong>Input:</strong> preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]\n<strong>Output:</strong> [3,9,20,null,null,15,7]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> preorder = [-1], inorder = [-1]\n<strong>Output:</strong> [-1]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= preorder.length &lt;= 3000</code></li>\n\t<li><code>inorder.length == preorder.length</code></li>\n\t<li><code>-3000 &lt;= preorder[i], inorder[i] &lt;= 3000</code></li>\n\t<li><code>preorder</code> and <code>inorder</code> consist of <strong>unique</strong> values.</li>\n\t<li>Each value of <code>inorder</code> also appears in <code>preorder</code>.</li>\n\t<li><code>preorder</code> is <strong>guaranteed</strong> to be the preorder traversal of the tree.</li>\n\t<li><code>inorder</code> is <strong>guaranteed</strong> to be the inorder traversal of the tree.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]\nOutput: [3,9,20,null,null,15,7]",
+        "Example 2:\n\nInput: preorder = [-1], inorder = [-1]\nOutput: [-1]\n\n \n\nConstraints:\n\n\t- `1 <= preorder.length <= 3000`\n\n\t- `inorder.length == preorder.length`\n\n\t- `-3000 <= preorder[i], inorder[i] <= 3000`\n\n\t- `preorder` and `inorder` consist of unique values.\n\n\t- Each value of `inorder` also appears in `preorder`.\n\n\t- `preorder` is guaranteed to be the preorder traversal of the tree.\n\n\t- `inorder` is guaranteed to be the inorder traversal of the tree."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+      "path": "Tree_BT_BST/105.py",
+      "language": "Python",
+      "solution": "import collections  # cspell:ignore inorder preorder\n\nclass TreeNode(object):\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution(object):\n    def buildTree(self, preorder, inorder):\n        \n        if not preorder or not inorder:\n            return None\n\n        index_map = {value: idx for idx, value in enumerate(inorder)}\n        preorder_q = collections.deque(preorder)\n\n        def build(left, right):\n            if left > right:\n                return None\n\n            root_val = preorder_q.popleft()\n            root = TreeNode(root_val)\n            mid = index_map[root_val]\n\n            root.left = build(left, mid - 1)\n            root.right = build(mid + 1, right)\n            return root\n\n        return build(0, len(inorder) - 1)"
+    },
+    {
+      "id": "108",
+      "title": "Convert Sorted Array to Binary Search Tree",
+      "category": "Tree_BT_BST",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Divide and Conquer",
+        "Tree",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given an integer array `nums` where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.",
+      "statementHtml": "<p>Given an integer array <code>nums</code> where the elements are sorted in <strong>ascending order</strong>, convert <em>it to a </em><span data-keyword=\"height-balanced\"><strong><em>height-balanced</em></strong></span> <em>binary search tree</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/18/btree1.jpg\" style=\"width: 302px; height: 222px;\" />\n<pre>\n<strong>Input:</strong> nums = [-10,-3,0,5,9]\n<strong>Output:</strong> [0,-3,9,-10,null,5]\n<strong>Explanation:</strong> [0,-10,5,null,-3,null,9] is also accepted:\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/18/btree2.jpg\" style=\"width: 302px; height: 222px;\" />\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/18/btree.jpg\" style=\"width: 342px; height: 142px;\" />\n<pre>\n<strong>Input:</strong> nums = [1,3]\n<strong>Output:</strong> [3,1]\n<strong>Explanation:</strong> [1,null,3] and [3,1] are both height-balanced BSTs.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>nums</code> is sorted in a <strong>strictly increasing</strong> order.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [-10,-3,0,5,9]\nOutput: [0,-3,9,-10,null,5]\nExplanation: [0,-10,5,null,-3,null,9] is also accepted:",
+        "Example 2:\n\nInput: nums = [1,3]\nOutput: [3,1]\nExplanation: [1,null,3] and [3,1] are both height-balanced BSTs.\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 104`\n\n\t- `-104 <= nums[i] <= 104`\n\n\t- `nums` is sorted in a strictly increasing order."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/",
+      "path": "Tree_BT_BST/108.py",
+      "language": "Python",
+      "solution": "class TreeNode(object):\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution(object):\n    def sortedArrayToBST(self, nums):\n        \n        def convert(left, right):            \n            if left > right:\n                return None\n\n            mid = (left + right) // 2\n\n            node = TreeNode(nums[mid])\n\n            node.left = convert(left, mid - 1)\n            node.right = convert(mid + 1, right)\n\n            return node\n        \n        return convert(0, len(nums) - 1)"
+    },
+    {
+      "id": "111",
+      "title": "Minimum Depth of Binary Tree",
+      "category": "Tree_BT_BST",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given a binary tree, find its minimum depth.\n\nThe minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.\n\nNote: A leaf is a node with no children.",
+      "statementHtml": "<p>Given a binary tree, find its minimum depth.</p>\n\n<p>The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.</p>\n\n<p><strong>Note:</strong>&nbsp;A leaf is a node with no children.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/10/12/ex_depth.jpg\" style=\"width: 432px; height: 302px;\" />\n<pre>\n<strong>Input:</strong> root = [3,9,20,null,null,15,7]\n<strong>Output:</strong> 2\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = [2,null,3,null,4,null,5,null,6]\n<strong>Output:</strong> 5\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[0, 10<sup>5</sup>]</code>.</li>\n\t<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root = [3,9,20,null,null,15,7]\nOutput: 2",
+        "Example 2:\n\nInput: root = [2,null,3,null,4,null,5,null,6]\nOutput: 5\n\n \n\nConstraints:\n\n\t- The number of nodes in the tree is in the range `[0, 105]`.\n\n\t- `-1000 <= Node.val <= 1000`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/minimum-depth-of-binary-tree/",
+      "path": "Tree_BT_BST/111.py",
+      "language": "Python",
+      "solution": "import collections\nclass Solution(object):\n    def minDepth(self, root):\n        \n        if not root:\n            return 0\n\n        queue = collections.deque([root])\n        depth = 1\n\n        while queue:\n            level_size = len(queue)\n\n            for _ in range(level_size):\n                node = queue.popleft()\n\n                if not node.left and not node.right:\n                    return depth\n\n                if node.left:\n                    queue.append(node.left)\n                if node.right:\n                    queue.append(node.right)\n\n            depth += 1\n\n        return depth"
+    },
+    {
+      "id": "112",
+      "title": "Path Sum",
+      "category": "Tree_BT_BST",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "Given the `root` of a binary tree and an integer `targetSum`, return `true` if the tree has a root-to-leaf path such that adding up all the values along the path equals `targetSum`.\n\nA leaf is a node with no children.",
+      "statementHtml": "<p>Given the <code>root</code> of a binary tree and an integer <code>targetSum</code>, return <code>true</code> if the tree has a <strong>root-to-leaf</strong> path such that adding up all the values along the path equals <code>targetSum</code>.</p>\n\n<p>A <strong>leaf</strong> is a node with no children.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/18/pathsum1.jpg\" style=\"width: 500px; height: 356px;\" />\n<pre>\n<strong>Input:</strong> root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22\n<strong>Output:</strong> true\n<strong>Explanation:</strong> The root-to-leaf path with the target sum is shown.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/18/pathsum2.jpg\" />\n<pre>\n<strong>Input:</strong> root = [1,2,3], targetSum = 5\n<strong>Output:</strong> false\n<strong>Explanation:</strong> There are two root-to-leaf paths in the tree:\n(1 --&gt; 2): The sum is 3.\n(1 --&gt; 3): The sum is 4.\nThere is no root-to-leaf path with sum = 5.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> root = [], targetSum = 0\n<strong>Output:</strong> false\n<strong>Explanation:</strong> Since the tree is empty, there are no root-to-leaf paths.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[0, 5000]</code>.</li>\n\t<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>\n\t<li><code>-1000 &lt;= targetSum &lt;= 1000</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22\nOutput: true\nExplanation: The root-to-leaf path with the target sum is shown.",
+        "Example 2:\n\nInput: root = [1,2,3], targetSum = 5\nOutput: false\nExplanation: There are two root-to-leaf paths in the tree:\n(1 --> 2): The sum is 3.\n(1 --> 3): The sum is 4.\nThere is no root-to-leaf path with sum = 5.",
+        "Example 3:\n\nInput: root = [], targetSum = 0\nOutput: false\nExplanation: Since the tree is empty, there are no root-to-leaf paths.\n\n \n\nConstraints:\n\n\t- The number of nodes in the tree is in the range `[0, 5000]`.\n\n\t- `-1000 <= Node.val <= 1000`\n\n\t- `-1000 <= targetSum <= 1000`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/path-sum/",
+      "path": "Tree_BT_BST/112.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def hasPathSum(self, root, targetSum):\n        \n        if not root:\n            return False\n        \n        if not root.left and not root.right:\n            return targetSum - root.val == 0\n        \n        targetSum -= root.val\n        \n        return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)"
+    },
+    {
+      "id": "121",
+      "title": "Best Time to Buy and Sell Stock",
+      "category": "DynamicProgramming",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "notes": "",
+      "statement": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.",
+      "statementHtml": "<p>You are given an array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day.</p>\n\n<p>You want to maximize your profit by choosing a <strong>single day</strong> to buy one stock and choosing a <strong>different day in the future</strong> to sell that stock.</p>\n\n<p>Return <em>the maximum profit you can achieve from this transaction</em>. If you cannot achieve any profit, return <code>0</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> prices = [7,1,5,3,6,4]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\nNote that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> prices = [7,6,4,3,1]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> In this case, no transactions are done and the max profit = 0.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= prices.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: prices = [7,1,5,3,6,4]\nOutput: 5\nExplanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\nNote that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.",
+        "Example 2:\n\nInput: prices = [7,6,4,3,1]\nOutput: 0\nExplanation: In this case, no transactions are done and the max profit = 0.\n\n \n\nConstraints:\n\n\t- `1 <= prices.length <= 105`\n\n\t- `0 <= prices[i] <= 104`"
+      ],
+      "constraints": [
+        "1 <= prices.length <= 10^5",
+        "0 <= prices[i] <= 10^4"
+      ],
+      "sourceUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "path": "DynamicProgramming/121.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def maxProfit(self, prices):\n        buy_price = prices[0]\n        profit = 0\n\n        for p in prices[1:]:\n            if buy_price > p:\n                buy_price = p\n            \n            profit = max(profit, p - buy_price)\n        \n        return profit"
+    },
+    {
+      "id": "122",
+      "title": "Best Time to Buy and Sell Stock II",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "notes": "",
+      "statement": "You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `ith` day.\n\nOn each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can sell and buy the stock multiple times on the same day, ensuring you never hold more than one share of the stock.\n\nFind and return the maximum profit you can achieve.",
+      "statementHtml": "<p>You are given an integer array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day.</p>\n\n<p>On each day, you may decide to buy and/or sell the stock. You can only hold <strong>at most one</strong> share of the stock at any time. However, you can sell and buy the stock multiple times on the <strong>same day</strong>, ensuring you never hold more than one share of the stock.</p>\n\n<p>Find and return <em>the <strong>maximum</strong> profit you can achieve</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> prices = [7,1,5,3,6,4]\n<strong>Output:</strong> 7\n<strong>Explanation:</strong> Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.\nThen buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.\nTotal profit is 4 + 3 = 7.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> prices = [1,2,3,4,5]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.\nTotal profit is 4.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> prices = [7,6,4,3,1]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= prices.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: prices = [7,1,5,3,6,4]\nOutput: 7\nExplanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.\nThen buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.\nTotal profit is 4 + 3 = 7.",
+        "Example 2:\n\nInput: prices = [1,2,3,4,5]\nOutput: 4\nExplanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.\nTotal profit is 4.",
+        "Example 3:\n\nInput: prices = [7,6,4,3,1]\nOutput: 0\nExplanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.\n\n \n\nConstraints:\n\n\t- `1 <= prices.length <= 3 * 104`\n\n\t- `0 <= prices[i] <= 104`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+      "path": "DynamicProgramming/122.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def maxProfit(self, prices):\n        profit = 0\n\n        for i in range(1, len(prices)):\n            if prices[i] > prices[i - 1]:\n                profit += prices[i] - prices[i - 1]\n\n        return profit"
+    },
+    {
+      "id": "127",
+      "title": "Word Ladder",
+      "category": "Graph_BFS_DFS",
+      "difficulty": "Hard",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Breadth-First Search"
+      ],
+      "notes": "",
+      "statement": "A transformation sequence from word `beginWord` to word `endWord` using a dictionary `wordList` is a sequence of words `beginWord -> s1 -> s2 -> ... -> sk` such that:\n\n\t- Every adjacent pair of words differs by a single letter.\n\n\t- Every `si` for `1 <= i <= k` is in `wordList`. Note that `beginWord` does not need to be in `wordList`.\n\n\t- `sk == endWord`\n\nGiven two words, `beginWord` and `endWord`, and a dictionary `wordList`, return the number of words in the shortest transformation sequence from `beginWord` to `endWord`, or `0` if no such sequence exists.",
+      "statementHtml": "<p>A <strong>transformation sequence</strong> from word <code>beginWord</code> to word <code>endWord</code> using a dictionary <code>wordList</code> is a sequence of words <code>beginWord -&gt; s<sub>1</sub> -&gt; s<sub>2</sub> -&gt; ... -&gt; s<sub>k</sub></code> such that:</p>\n\n<ul>\n\t<li>Every adjacent pair of words differs by a single letter.</li>\n\t<li>Every <code>s<sub>i</sub></code> for <code>1 &lt;= i &lt;= k</code> is in <code>wordList</code>. Note that <code>beginWord</code> does not need to be in <code>wordList</code>.</li>\n\t<li><code>s<sub>k</sub> == endWord</code></li>\n</ul>\n\n<p>Given two words, <code>beginWord</code> and <code>endWord</code>, and a dictionary <code>wordList</code>, return <em>the <strong>number of words</strong> in the <strong>shortest transformation sequence</strong> from</em> <code>beginWord</code> <em>to</em> <code>endWord</code><em>, or </em><code>0</code><em> if no such sequence exists.</em></p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> One shortest transformation sequence is &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; cog&quot;, which is 5 words long.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> The endWord &quot;cog&quot; is not in wordList, therefore there is no valid transformation sequence.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= beginWord.length &lt;= 10</code></li>\n\t<li><code>endWord.length == beginWord.length</code></li>\n\t<li><code>1 &lt;= wordList.length &lt;= 5000</code></li>\n\t<li><code>wordList[i].length == beginWord.length</code></li>\n\t<li><code>beginWord</code>, <code>endWord</code>, and <code>wordList[i]</code> consist of lowercase English letters.</li>\n\t<li><code>beginWord != endWord</code></li>\n\t<li>All the words in <code>wordList</code> are <strong>unique</strong>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]\nOutput: 5\nExplanation: One shortest transformation sequence is \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> cog\", which is 5 words long.",
+        "Example 2:\n\nInput: beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]\nOutput: 0\nExplanation: The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence.\n\n \n\nConstraints:\n\n\t- `1 <= beginWord.length <= 10`\n\n\t- `endWord.length == beginWord.length`\n\n\t- `1 <= wordList.length <= 5000`\n\n\t- `wordList[i].length == beginWord.length`\n\n\t- `beginWord`, `endWord`, and `wordList[i]` consist of lowercase English letters.\n\n\t- `beginWord != endWord`\n\n\t- All the words in `wordList` are unique."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/word-ladder/",
+      "path": "Graph_BFS_DFS/127.py",
+      "language": "Python",
+      "solution": "import string\n\n\nclass Solution(object):\n    def ladderLength(self, beginWord, endWord, wordList):\n\n        wordSet = set(wordList)\n        if endWord not in wordSet:\n            return 0\n        \n        # Bidirectional BFS from both ends.\n        begin_set = {beginWord}\n        end_set = {endWord}\n        visited = set()\n        steps = 1\n        \n        while begin_set and end_set:\n            if len(begin_set) > len(end_set):\n                begin_set, end_set = end_set, begin_set\n            \n            next_set = set()\n            \n            for word in begin_set:\n                for i in range(len(word)):\n                    for c in string.ascii_lowercase:\n                        if c == word[i]:\n                            continue\n                        \n                        new_word = word[:i] + c + word[i+1:]\n                        \n                        if new_word in end_set:\n                            return steps + 1\n                        \n                        if new_word in wordSet and new_word not in visited:\n                            visited.add(new_word)\n                            next_set.add(new_word)\n            \n            begin_set = next_set\n            steps += 1\n        \n        return 0\n        "
+    },
+    {
+      "id": "139",
+      "title": "Word Break",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Dynamic Programming",
+        "Trie",
+        "Memoization"
+      ],
+      "notes": "",
+      "statement": "Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words.\n\nNote that the same word in the dictionary may be reused multiple times in the segmentation.",
+      "statementHtml": "<p>Given a string <code>s</code> and a dictionary of strings <code>wordDict</code>, return <code>true</code> if <code>s</code> can be segmented into a space-separated sequence of one or more dictionary words.</p>\n\n<p><strong>Note</strong> that the same word in the dictionary may be reused multiple times in the segmentation.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;leetcode&quot;, wordDict = [&quot;leet&quot;,&quot;code&quot;]\n<strong>Output:</strong> true\n<strong>Explanation:</strong> Return true because &quot;leetcode&quot; can be segmented as &quot;leet code&quot;.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;applepenapple&quot;, wordDict = [&quot;apple&quot;,&quot;pen&quot;]\n<strong>Output:</strong> true\n<strong>Explanation:</strong> Return true because &quot;applepenapple&quot; can be segmented as &quot;apple pen apple&quot;.\nNote that you are allowed to reuse a dictionary word.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;catsandog&quot;, wordDict = [&quot;cats&quot;,&quot;dog&quot;,&quot;sand&quot;,&quot;and&quot;,&quot;cat&quot;]\n<strong>Output:</strong> false\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 300</code></li>\n\t<li><code>1 &lt;= wordDict.length &lt;= 1000</code></li>\n\t<li><code>1 &lt;= wordDict[i].length &lt;= 20</code></li>\n\t<li><code>s</code> and <code>wordDict[i]</code> consist of only lowercase English letters.</li>\n\t<li>All the strings of <code>wordDict</code> are <strong>unique</strong>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: s = \"leetcode\", wordDict = [\"leet\",\"code\"]\nOutput: true\nExplanation: Return true because \"leetcode\" can be segmented as \"leet code\".",
+        "Example 2:\n\nInput: s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]\nOutput: true\nExplanation: Return true because \"applepenapple\" can be segmented as \"apple pen apple\".\nNote that you are allowed to reuse a dictionary word.",
+        "Example 3:\n\nInput: s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]\nOutput: false\n\n \n\nConstraints:\n\n\t- `1 <= s.length <= 300`\n\n\t- `1 <= wordDict.length <= 1000`\n\n\t- `1 <= wordDict[i].length <= 20`\n\n\t- `s` and `wordDict[i]` consist of only lowercase English letters.\n\n\t- All the strings of `wordDict` are unique."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/word-break/",
+      "path": "DynamicProgramming/139.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def wordBreak(self, s, wordDict):\n        dp = [True] + [False] * len(s)\n\n        for i in range(1, len(s) + 1):\n            for w in wordDict:\n                start = i - len(w)\n                if start >= 0 and dp[start] and s[start:i] == w:\n                    dp[i] = True\n                    break\n        \n        return dp[-1]"
+    },
+    {
+      "id": "141",
+      "title": "Linked List Cycle",
+      "category": "LinkedList",
+      "difficulty": "Easy",
+      "tags": [
+        "Hash Table",
+        "Linked List",
+        "Two Pointers"
+      ],
+      "notes": "",
+      "statement": "Given `head`, the head of a linked list, determine if the linked list has a cycle in it.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer. Internally, `pos` is used to denote the index of the node that tail's `next` pointer is connected to. Note that `pos` is not passed as a parameter.\n\nReturn `true` if there is a cycle in the linked list. Otherwise, return `false`.",
+      "statementHtml": "<p>Given <code>head</code>, the head of a linked list, determine if the linked list has a cycle in it.</p>\n\n<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the&nbsp;<code>next</code>&nbsp;pointer. Internally, <code>pos</code>&nbsp;is used to denote the index of the node that&nbsp;tail&#39;s&nbsp;<code>next</code>&nbsp;pointer is connected to.&nbsp;<strong>Note that&nbsp;<code>pos</code>&nbsp;is not passed as a parameter</strong>.</p>\n\n<p>Return&nbsp;<code>true</code><em> if there is a cycle in the linked list</em>. Otherwise, return <code>false</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png\" style=\"width: 300px; height: 97px; margin-top: 8px; margin-bottom: 8px;\" />\n<pre>\n<strong>Input:</strong> head = [3,2,0,-4], pos = 1\n<strong>Output:</strong> true\n<strong>Explanation:</strong> There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test2.png\" style=\"width: 141px; height: 74px;\" />\n<pre>\n<strong>Input:</strong> head = [1,2], pos = 0\n<strong>Output:</strong> true\n<strong>Explanation:</strong> There is a cycle in the linked list, where the tail connects to the 0th node.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test3.png\" style=\"width: 45px; height: 45px;\" />\n<pre>\n<strong>Input:</strong> head = [1], pos = -1\n<strong>Output:</strong> false\n<strong>Explanation:</strong> There is no cycle in the linked list.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of the nodes in the list is in the range <code>[0, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n\t<li><code>pos</code> is <code>-1</code> or a <strong>valid index</strong> in the linked-list.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow up:</strong> Can you solve it using <code>O(1)</code> (i.e. constant) memory?</p>\n",
+      "examples": [
+        "Example 1:\n\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).",
+        "Example 2:\n\nInput: head = [1,2], pos = 0\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 0th node.",
+        "Example 3:\n\nInput: head = [1], pos = -1\nOutput: false\nExplanation: There is no cycle in the linked list.\n\n \n\nConstraints:\n\n\t- The number of the nodes in the list is in the range `[0, 104]`.\n\n\t- `-105 <= Node.val <= 105`\n\n\t- `pos` is `-1` or a valid index in the linked-list.\n\n \n\nFollow up: Can you solve it using `O(1)` (i.e. constant) memory?"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/linked-list-cycle/",
+      "path": "LinkedList/141.py",
+      "language": "Python",
+      "solution": "class ListNode(object):\n    def __init__(self, x):\n        self.val = x\n        self.next = None\n\n\nclass Solution(object):\n    def hasCycle(self, head):\n        slow = head\n        fast = head\n\n        while fast and fast.next:\n            slow = slow.next\n            fast = fast.next.next\n\n            if slow == fast:\n                return True\n\n        return False"
+    },
+    {
+      "id": "142",
+      "title": "Linked List Cycle II",
+      "category": "LinkedList",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "Linked List",
+        "Two Pointers"
+      ],
+      "notes": "",
+      "statement": "Given the `head` of a linked list, return the node where the cycle begins. If there is no cycle, return `null`.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer. Internally, `pos` is used to denote the index of the node that tail's `next` pointer is connected to (0-indexed). It is `-1` if there is no cycle. Note that `pos` is not passed as a parameter.\n\nDo not modify the linked list.",
+      "statementHtml": "<p>Given the <code>head</code> of a linked list, return <em>the node where the cycle begins. If there is no cycle, return </em><code>null</code>.</p>\n\n<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the <code>next</code> pointer. Internally, <code>pos</code> is used to denote the index of the node that tail&#39;s <code>next</code> pointer is connected to (<strong>0-indexed</strong>). It is <code>-1</code> if there is no cycle. <strong>Note that</strong> <code>pos</code> <strong>is not passed as a parameter</strong>.</p>\n\n<p><strong>Do not modify</strong> the linked list.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png\" style=\"height: 145px; width: 450px;\" />\n<pre>\n<strong>Input:</strong> head = [3,2,0,-4], pos = 1\n<strong>Output:</strong> tail connects to node index 1\n<strong>Explanation:</strong> There is a cycle in the linked list, where tail connects to the second node.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test2.png\" style=\"height: 105px; width: 201px;\" />\n<pre>\n<strong>Input:</strong> head = [1,2], pos = 0\n<strong>Output:</strong> tail connects to node index 0\n<strong>Explanation:</strong> There is a cycle in the linked list, where tail connects to the first node.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test3.png\" style=\"height: 65px; width: 65px;\" />\n<pre>\n<strong>Input:</strong> head = [1], pos = -1\n<strong>Output:</strong> no cycle\n<strong>Explanation:</strong> There is no cycle in the linked list.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of the nodes in the list is in the range <code>[0, 10<sup>4</sup>]</code>.</li>\n\t<li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n\t<li><code>pos</code> is <code>-1</code> or a <strong>valid index</strong> in the linked-list.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow up:</strong> Can you solve it using <code>O(1)</code> (i.e. constant) memory?</p>\n",
+      "examples": [
+        "Example 1:\n\nInput: head = [3,2,0,-4], pos = 1\nOutput: tail connects to node index 1\nExplanation: There is a cycle in the linked list, where tail connects to the second node.",
+        "Example 2:\n\nInput: head = [1,2], pos = 0\nOutput: tail connects to node index 0\nExplanation: There is a cycle in the linked list, where tail connects to the first node.",
+        "Example 3:\n\nInput: head = [1], pos = -1\nOutput: no cycle\nExplanation: There is no cycle in the linked list.\n\n \n\nConstraints:\n\n\t- The number of the nodes in the list is in the range `[0, 104]`.\n\n\t- `-105 <= Node.val <= 105`\n\n\t- `pos` is `-1` or a valid index in the linked-list.\n\n \n\nFollow up: Can you solve it using `O(1)` (i.e. constant) memory?"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/linked-list-cycle-ii/",
+      "path": "LinkedList/142.py",
+      "language": "Python",
+      "solution": "class ListNode(object):\n    def __init__(self, x):\n        self.val = x\n        self.next = None\n\n\nclass Solution(object):\n    def detectCycle(self, head):\n        slow = head\n        fast = head\n\n        while fast and fast.next:\n            slow = slow.next\n            fast = fast.next.next\n\n            if slow == fast:\n                break\n        else:\n            return None\n\n        slow = head\n        while slow != fast:\n            slow = slow.next\n            fast = fast.next\n        return slow"
+    },
+    {
+      "id": "153",
+      "title": "Find Minimum in Rotated Sorted Array",
+      "category": "BinarySearch",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "notes": "",
+      "statement": "Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:\n\n\t- `[4,5,6,7,0,1,2]` if it was rotated `4` times.\n\n\t- `[0,1,2,4,5,6,7]` if it was rotated `7` times.\n\nNotice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.\n\nGiven the sorted rotated array `nums` of unique elements, return the minimum element of this array.\n\nYou must write an algorithm that runs in `O(log n) time`.",
+      "statementHtml": "<p>Suppose an array of length <code>n</code> sorted in ascending order is <strong>rotated</strong> between <code>1</code> and <code>n</code> times. For example, the array <code>nums = [0,1,2,4,5,6,7]</code> might become:</p>\n\n<ul>\n\t<li><code>[4,5,6,7,0,1,2]</code> if it was rotated <code>4</code> times.</li>\n\t<li><code>[0,1,2,4,5,6,7]</code> if it was rotated <code>7</code> times.</li>\n</ul>\n\n<p>Notice that <strong>rotating</strong> an array <code>[a[0], a[1], a[2], ..., a[n-1]]</code> 1 time results in the array <code>[a[n-1], a[0], a[1], a[2], ..., a[n-2]]</code>.</p>\n\n<p>Given the sorted rotated array <code>nums</code> of <strong>unique</strong> elements, return <em>the minimum element of this array</em>.</p>\n\n<p>You must write an algorithm that runs in&nbsp;<code>O(log n) time</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [3,4,5,1,2]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The original array was [1,2,3,4,5] rotated 3 times.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [4,5,6,7,0,1,2]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [11,13,15,17]\n<strong>Output:</strong> 11\n<strong>Explanation:</strong> The original array was [11,13,15,17] and it was rotated 4 times. \n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 5000</code></li>\n\t<li><code>-5000 &lt;= nums[i] &lt;= 5000</code></li>\n\t<li>All the integers of <code>nums</code> are <strong>unique</strong>.</li>\n\t<li><code>nums</code> is sorted and rotated between <code>1</code> and <code>n</code> times.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [3,4,5,1,2]\nOutput: 1\nExplanation: The original array was [1,2,3,4,5] rotated 3 times.",
+        "Example 2:\n\nInput: nums = [4,5,6,7,0,1,2]\nOutput: 0\nExplanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.",
+        "Example 3:\n\nInput: nums = [11,13,15,17]\nOutput: 11\nExplanation: The original array was [11,13,15,17] and it was rotated 4 times. \n\n \n\nConstraints:\n\n\t- `n == nums.length`\n\n\t- `1 <= n <= 5000`\n\n\t- `-5000 <= nums[i] <= 5000`\n\n\t- All the integers of `nums` are unique.\n\n\t- `nums` is sorted and rotated between `1` and `n` times."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+      "path": "BinarySearch/153.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def findMin(self, nums):\n\n        start, end = 0, len(nums) - 1\n\n        while start < end:\n\n            mid = start + (end - start) // 2\n\n            if nums[mid] > nums[end]:\n                start = mid + 1\n            else:\n                end = mid\n\n        return nums[start]"
+    },
+    {
+      "id": "198",
+      "title": "House Robber",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "notes": "",
+      "statement": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+      "statementHtml": "<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and <b>it will automatically contact the police if two adjacent houses were broken into on the same night</b>.</p>\n\n<p>Given an integer array <code>nums</code> representing the amount of money of each house, return <em>the maximum amount of money you can rob tonight <b>without alerting the police</b></em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,2,3,1]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> Rob house 1 (money = 1) and then rob house 3 (money = 3).\nTotal amount you can rob = 1 + 3 = 4.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [2,7,9,3,1]\n<strong>Output:</strong> 12\n<strong>Explanation:</strong> Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).\nTotal amount you can rob = 2 + 9 + 1 = 12.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 400</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [1,2,3,1]\nOutput: 4\nExplanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).\nTotal amount you can rob = 1 + 3 = 4.",
+        "Example 2:\n\nInput: nums = [2,7,9,3,1]\nOutput: 12\nExplanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).\nTotal amount you can rob = 2 + 9 + 1 = 12.\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 100`\n\n\t- `0 <= nums[i] <= 400`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/house-robber/",
+      "path": "DynamicProgramming/198.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def rob(self, nums):\n        n = len(nums)\n        \n        if n == 1:\n            return nums[0]\n        \n        dp = [0] * n\n        \n        dp[0] = nums[0]\n        dp[1] = max(nums[0], nums[1])\n        \n        for i in range(2, n):\n            dp[i] = max(dp[i-1], nums[i] + dp[i-2])\n        \n        return dp[-1] "
+    },
+    {
+      "id": "200",
+      "title": "Number of Islands",
+      "category": "Graph_BFS_DFS",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union-Find",
+        "Matrix"
+      ],
+      "notes": "",
+      "statement": "Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.",
+      "statementHtml": "<p>Given an <code>m x n</code> 2D binary grid <code>grid</code> which represents a map of <code>&#39;1&#39;</code>s (land) and <code>&#39;0&#39;</code>s (water), return <em>the number of islands</em>.</p>\n\n<p>An <strong>island</strong> is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> grid = [\n  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],\n  [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;]\n]\n<strong>Output:</strong> 1\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> grid = [\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],\n  [&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],\n  [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;]\n]\n<strong>Output:</strong> 3\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 300</code></li>\n\t<li><code>grid[i][j]</code> is <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: grid = [\n  [\"1\",\"1\",\"1\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"0\",\"0\"]\n]\nOutput: 1",
+        "Example 2:\n\nInput: grid = [\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"1\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"1\",\"1\"]\n]\nOutput: 3\n\n \n\nConstraints:\n\n\t- `m == grid.length`\n\n\t- `n == grid[i].length`\n\n\t- `1 <= m, n <= 300`\n\n\t- `grid[i][j]` is `'0'` or `'1'`."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/number-of-islands/",
+      "path": "Graph_BFS_DFS/200.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def numIslands(self, grid):\n        \n        if not grid:\n            return 0\n        \n        rows, cols = len(grid), len(grid[0])\n        count = 0\n        directions = [(1,0), (-1,0), (0,1), (0,-1)]\n\n        for r in range(rows):\n            for c in range(cols):\n                if grid[r][c] == \"1\":\n                    count += 1\n                    \n                    # Flood fill one island and mark it as visited.\n                    stack = [(r, c)]\n                    grid[r][c] = \"0\"\n                    \n                    while stack:\n                        x, y = stack.pop()\n                        \n                        for dx, dy in directions:\n                            nx, ny = x + dx, y + dy\n                            \n                            if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == \"1\":\n                                grid[nx][ny] = \"0\"\n                                stack.append((nx, ny))\n        \n        return count"
+    },
+    {
+      "id": "206",
+      "title": "Reverse Linked List",
+      "category": "Stack",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "notes": "",
+      "statement": "Given the `head` of a singly linked list, reverse the list, and return the reversed list.",
+      "statementHtml": "<p>Given the <code>head</code> of a singly linked list, reverse the list, and return <em>the reversed list</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg\" style=\"width: 542px; height: 222px;\" />\n<pre>\n<strong>Input:</strong> head = [1,2,3,4,5]\n<strong>Output:</strong> [5,4,3,2,1]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg\" style=\"width: 182px; height: 222px;\" />\n<pre>\n<strong>Input:</strong> head = [1,2]\n<strong>Output:</strong> [2,1]\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> head = []\n<strong>Output:</strong> []\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the list is the range <code>[0, 5000]</code>.</li>\n\t<li><code>-5000 &lt;= Node.val &lt;= 5000</code></li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow up:</strong> A linked list can be reversed either iteratively or recursively. Could you implement both?</p>\n",
+      "examples": [
+        "Example 1:\n\nInput: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]",
+        "Example 2:\n\nInput: head = [1,2]\nOutput: [2,1]",
+        "Example 3:\n\nInput: head = []\nOutput: []\n\n \n\nConstraints:\n\n\t- The number of nodes in the list is the range `[0, 5000]`.\n\n\t- `-5000 <= Node.val <= 5000`\n\n \n\nFollow up: A linked list can be reversed either iteratively or recursively. Could you implement both?"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/reverse-linked-list/",
+      "path": "Stack/206.py",
+      "language": "Python",
+      "solution": "class ListNode(object):\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n\nclass Solution(object):\n    def reverseList(self, head):\n        prev = None\n        curr = head\n\n        while curr:\n            nxt = curr.next\n            curr.next = prev\n\n            prev = curr\n            curr = nxt\n\n        return prev"
+    },
+    {
+      "id": "209",
+      "title": "Minimum Size Subarray Sum",
+      "category": "SlidingWindow",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Sliding Window",
+        "Prefix Sum"
+      ],
+      "notes": "",
+      "statement": "Given an array of positive integers `nums` and a positive integer `target`, return the minimal length of a subarray whose sum is greater than or equal to `target`. If there is no such subarray, return `0` instead.",
+      "statementHtml": "<p>Given an array of positive integers <code>nums</code> and a positive integer <code>target</code>, return <em>the <strong>minimal length</strong> of a </em><span data-keyword=\"subarray-nonempty\"><em>subarray</em></span><em> whose sum is greater than or equal to</em> <code>target</code>. If there is no such subarray, return <code>0</code> instead.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> target = 7, nums = [2,3,1,2,4,3]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> The subarray [4,3] has the minimal length under the problem constraint.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> target = 4, nums = [1,4,4]\n<strong>Output:</strong> 1\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> target = 11, nums = [1,1,1,1,1,1,1,1]\n<strong>Output:</strong> 0\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= target &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n\n<p>&nbsp;</p>\n<strong>Follow up:</strong> If you have figured out the <code>O(n)</code> solution, try coding another solution of which the time complexity is <code>O(n log(n))</code>.",
+      "examples": [
+        "Example 1:\n\nInput: target = 7, nums = [2,3,1,2,4,3]\nOutput: 2\nExplanation: The subarray [4,3] has the minimal length under the problem constraint.",
+        "Example 2:\n\nInput: target = 4, nums = [1,4,4]\nOutput: 1",
+        "Example 3:\n\nInput: target = 11, nums = [1,1,1,1,1,1,1,1]\nOutput: 0\n\n \n\nConstraints:\n\n\t- `1 <= target <= 109`\n\n\t- `1 <= nums.length <= 105`\n\n\t- `1 <= nums[i] <= 104`\n\n \n\nFollow up: If you have figured out the `O(n)` solution, try coding another solution of which the time complexity is `O(n log(n))`."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/minimum-size-subarray-sum/",
+      "path": "SlidingWindow/209.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def minSubArrayLen(self, target, nums):\n        left = 0\n        curr_sum = 0  \n        min_length = float('inf')\n        for right in range(len(nums)):\n            curr_sum += nums[right] \n            while curr_sum >= target and left<=right: \n                min_length = min(min_length,right - left + 1)\n                curr_sum -= nums[left]  \n                left +=1 \n        return 0 if min_length == float('inf') else min_length"
+    },
+    {
+      "id": "213",
+      "title": "House Robber II",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "notes": "",
+      "statement": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+      "statementHtml": "<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are <strong>arranged in a circle.</strong> That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and&nbsp;<b>it will automatically contact the police if two adjacent houses were broken into on the same night</b>.</p>\n\n<p>Given an integer array <code>nums</code> representing the amount of money of each house, return <em>the maximum amount of money you can rob tonight <strong>without alerting the police</strong></em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [2,3,2]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,2,3,1]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> Rob house 1 (money = 1) and then rob house 3 (money = 3).\nTotal amount you can rob = 1 + 3 = 4.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,2,3]\n<strong>Output:</strong> 3\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [2,3,2]\nOutput: 3\nExplanation: You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.",
+        "Example 2:\n\nInput: nums = [1,2,3,1]\nOutput: 4\nExplanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).\nTotal amount you can rob = 1 + 3 = 4.",
+        "Example 3:\n\nInput: nums = [1,2,3]\nOutput: 3\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 100`\n\n\t- `0 <= nums[i] <= 1000`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/house-robber-ii/",
+      "path": "DynamicProgramming/213.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def rob(self, nums):\n\n        def get_max(nums):\n            prev_rob = max_rob = 0\n\n            for cur_val in nums:\n                temp = max(max_rob, prev_rob + cur_val)\n                prev_rob = max_rob\n                max_rob = temp\n            \n            return max_rob\n        \n        return max(get_max(nums[:-1]), get_max(nums[1:]), nums[0])"
+    },
+    {
+      "id": "300",
+      "title": "Longest Increasing Subsequence",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming"
+      ],
+      "notes": "",
+      "statement": "Given an integer array `nums`, return the length of the longest strictly increasing subsequence.",
+      "statementHtml": "<p>Given an integer array <code>nums</code>, return <em>the length of the longest <strong>strictly increasing </strong></em><span data-keyword=\"subsequence-array\"><em><strong>subsequence</strong></em></span>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [10,9,2,5,3,7,101,18]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The longest increasing subsequence is [2,3,7,101], therefore the length is 4.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [0,1,0,3,2,3]\n<strong>Output:</strong> 4\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [7,7,7,7,7,7,7]\n<strong>Output:</strong> 1\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2500</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n\n<p>&nbsp;</p>\n<p><b>Follow up:</b>&nbsp;Can you come up with an algorithm that runs in&nbsp;<code>O(n log(n))</code> time complexity?</p>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [10,9,2,5,3,7,101,18]\nOutput: 4\nExplanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.",
+        "Example 2:\n\nInput: nums = [0,1,0,3,2,3]\nOutput: 4",
+        "Example 3:\n\nInput: nums = [7,7,7,7,7,7,7]\nOutput: 1\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 2500`\n\n\t- `-104 <= nums[i] <= 104`\n\n \n\nFollow up: Can you come up with an algorithm that runs in `O(n log(n))` time complexity?"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/longest-increasing-subsequence/",
+      "path": "DynamicProgramming/300.py",
+      "language": "Python",
+      "solution": "import bisect\n\nclass Solution:\n    def lengthOfLIS(self, nums):\n        tails = []\n        \n        for num in nums:\n            idx = bisect.bisect_left(tails, num)\n            \n            if idx == len(tails):\n                tails.append(num)\n            else:\n                tails[idx] = num\n        \n        return len(tails)"
+    },
+    {
+      "id": "322",
+      "title": "Coin Change",
+      "category": "DynamicProgramming",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Breadth-First Search"
+      ],
+      "notes": "",
+      "statement": "You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.\n\nYou may assume that you have an infinite number of each kind of coin.",
+      "statementHtml": "<p>You are given an integer array <code>coins</code> representing coins of different denominations and an integer <code>amount</code> representing a total amount of money.</p>\n\n<p>Return <em>the fewest number of coins that you need to make up that amount</em>. If that amount of money cannot be made up by any combination of the coins, return <code>-1</code>.</p>\n\n<p>You may assume that you have an infinite number of each kind of coin.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> coins = [1,2,5], amount = 11\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> 11 = 5 + 5 + 1\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> coins = [2], amount = 3\n<strong>Output:</strong> -1\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> coins = [1], amount = 0\n<strong>Output:</strong> 0\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= coins.length &lt;= 12</code></li>\n\t<li><code>1 &lt;= coins[i] &lt;= 2<sup>31</sup> - 1</code></li>\n\t<li><code>0 &lt;= amount &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: coins = [1,2,5], amount = 11\nOutput: 3\nExplanation: 11 = 5 + 5 + 1",
+        "Example 2:\n\nInput: coins = [2], amount = 3\nOutput: -1",
+        "Example 3:\n\nInput: coins = [1], amount = 0\nOutput: 0\n\n \n\nConstraints:\n\n\t- `1 <= coins.length <= 12`\n\n\t- `1 <= coins[i] <= 231 - 1`\n\n\t- `0 <= amount <= 104`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/coin-change/",
+      "path": "DynamicProgramming/322.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def coinChange(self, coins, amount):\n        min_coins = [amount + 1] * (amount + 1)\n        min_coins[0] = 0\n\n        for i in range(1, amount + 1):\n            for c in coins:\n                if i - c >= 0:\n                    min_coins[i] = min(min_coins[i], 1 + min_coins[i - c])\n        \n        return min_coins[-1] if min_coins[-1] != amount + 1 else -1"
+    },
+    {
+      "id": "347",
+      "title": "Top K Frequent Elements",
+      "category": "Heap_PriorityQueue",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Divide and Conquer",
+        "Sorting",
+        "Heap (Priority Queue)",
+        "Bucket Sort",
+        "Counting",
+        "Quickselect"
+      ],
+      "notes": "",
+      "statement": "Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.",
+      "statementHtml": "<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return <em>the</em> <code>k</code> <em>most frequent elements</em>. You may return the answer in <strong>any order</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,1,1,2,2,3], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[1,2]</span></p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1], k = 1</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[1]</span></p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,2,1,2,1,2,3,1,3,2], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[1,2]</span></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>k</code> is in the range <code>[1, the number of unique elements in the array]</code>.</li>\n\t<li>It is <strong>guaranteed</strong> that the answer is <strong>unique</strong>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow up:</strong> Your algorithm&#39;s time complexity must be better than <code>O(n log n)</code>, where n is the array&#39;s size.</p>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [1,1,1,2,2,3], k = 2\n\nOutput: [1,2]",
+        "Example 2:\n\nInput: nums = [1], k = 1\n\nOutput: [1]",
+        "Example 3:\n\nInput: nums = [1,2,1,2,1,2,3,1,3,2], k = 2\n\nOutput: [1,2]\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 105`\n\n\t- `-104 <= nums[i] <= 104`\n\n\t- `k` is in the range `[1, the number of unique elements in the array]`.\n\n\t- It is guaranteed that the answer is unique.\n\n \n\nFollow up: Your algorithm's time complexity must be better than `O(n log n)`, where n is the array's size."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/top-k-frequent-elements/",
+      "path": "Heap_PriorityQueue/347.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def topKFrequent(self, nums, k):\n        n = len(nums)\n        occur = {}\n\n        for num in nums:\n            occur[num] = occur.get(num, 0) + 1\n\n        bucket = [[] for _ in range(n + 1)]\n        for key in occur:\n            bucket[occur[key]].append(key)\n\n        res = []\n        for i in range(n, 0, -1):\n            for val in bucket[i]:\n                res.append(val)\n                if len(res) == k:\n                    return res"
+    },
+    {
+      "id": "349",
+      "title": "Intersection of Two Arrays",
+      "category": "HashMap",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Two Pointers",
+        "Binary Search",
+        "Sorting"
+      ],
+      "notes": "",
+      "statement": "Given two integer arrays `nums1` and `nums2`, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.",
+      "statementHtml": "<p>Given two integer arrays <code>nums1</code> and <code>nums2</code>, return <em>an array of their <span data-keyword=\"array-intersection\">intersection</span></em>. Each element in the result must be <strong>unique</strong> and you may return the result in <strong>any order</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [1,2,2,1], nums2 = [2,2]\n<strong>Output:</strong> [2]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [4,9,5], nums2 = [9,4,9,8,4]\n<strong>Output:</strong> [9,4]\n<strong>Explanation:</strong> [4,9] is also accepted.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums1.length, nums2.length &lt;= 1000</code></li>\n\t<li><code>0 &lt;= nums1[i], nums2[i] &lt;= 1000</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums1 = [1,2,2,1], nums2 = [2,2]\nOutput: [2]",
+        "Example 2:\n\nInput: nums1 = [4,9,5], nums2 = [9,4,9,8,4]\nOutput: [9,4]\nExplanation: [4,9] is also accepted.\n\n \n\nConstraints:\n\n\t- `1 <= nums1.length, nums2.length <= 1000`\n\n\t- `0 <= nums1[i], nums2[i] <= 1000`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/intersection-of-two-arrays/",
+      "path": "HashMap/349.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def intersection(self, nums1, nums2):\n        set1 = set(nums1)\n        result = set()\n\n        for num in nums2:\n            if num in set1:\n                result.add(num)\n\n        return list(result)"
+    },
+    {
+      "id": "373",
+      "title": "Find K Pairs with Smallest Sums",
+      "category": "Heap_PriorityQueue",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Heap (Priority Queue)"
+      ],
+      "notes": "",
+      "statement": "You are given two integer arrays `nums1` and `nums2` sorted in non-decreasing order and an integer `k`.\n\nDefine a pair `(u, v)` which consists of one element from the first array and one element from the second array.\n\nReturn the `k` pairs `(u1, v1), (u2, v2), ..., (uk, vk)` with the smallest sums.",
+      "statementHtml": "<p>You are given two integer arrays <code>nums1</code> and <code>nums2</code> sorted in <strong>non-decreasing&nbsp;order</strong> and an integer <code>k</code>.</p>\n\n<p>Define a pair <code>(u, v)</code> which consists of one element from the first array and one element from the second array.</p>\n\n<p>Return <em>the</em> <code>k</code> <em>pairs</em> <code>(u<sub>1</sub>, v<sub>1</sub>), (u<sub>2</sub>, v<sub>2</sub>), ..., (u<sub>k</sub>, v<sub>k</sub>)</code> <em>with the smallest sums</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [1,7,11], nums2 = [2,4,6], k = 3\n<strong>Output:</strong> [[1,2],[1,4],[1,6]]\n<strong>Explanation:</strong> The first 3 pairs are returned from the sequence: [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [1,1,2], nums2 = [1,2,3], k = 2\n<strong>Output:</strong> [[1,1],[1,1]]\n<strong>Explanation:</strong> The first 2 pairs are returned from the sequence: [1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums1.length, nums2.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums1[i], nums2[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>nums1</code> and <code>nums2</code> both are sorted in <strong>non-decreasing order</strong>.</li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>4</sup></code></li>\n\t<li><code>k &lt;=&nbsp;nums1.length *&nbsp;nums2.length</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums1 = [1,7,11], nums2 = [2,4,6], k = 3\nOutput: [[1,2],[1,4],[1,6]]\nExplanation: The first 3 pairs are returned from the sequence: [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]",
+        "Example 2:\n\nInput: nums1 = [1,1,2], nums2 = [1,2,3], k = 2\nOutput: [[1,1],[1,1]]\nExplanation: The first 2 pairs are returned from the sequence: [1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]\n\n \n\nConstraints:\n\n\t- `1 <= nums1.length, nums2.length <= 105`\n\n\t- `-109 <= nums1[i], nums2[i] <= 109`\n\n\t- `nums1` and `nums2` both are sorted in non-decreasing order.\n\n\t- `1 <= k <= 104`\n\n\t- `k <= nums1.length * nums2.length`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/",
+      "path": "Heap_PriorityQueue/373.py",
+      "language": "Python",
+      "solution": "import heapq\n\n\nclass Solution(object):\n    def kSmallestPairs(self, nums1, nums2, k):\n        if not nums1 or not nums2 or k <= 0:\n            return []\n\n        m, n = len(nums1), len(nums2)\n        res = []\n        heap = []\n\n        for i in range(min(m, k)):\n            heapq.heappush(heap, (nums1[i] + nums2[0], i, 0))\n\n        while heap and len(res) < k:\n            _, i, j = heapq.heappop(heap)\n            res.append([nums1[i], nums2[j]])\n\n            if j + 1 < n:\n                heapq.heappush(heap, (nums1[i] + nums2[j + 1], i, j + 1))\n\n        return res\n"
+    },
+    {
+      "id": "387",
+      "title": "First Unique Character in a String",
+      "category": "HashMap",
+      "difficulty": "Easy",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Queue",
+        "Counting"
+      ],
+      "notes": "",
+      "statement": "Given a string `s`, find the first non-repeating character in it and return its index. If it does not exist, return `-1`.",
+      "statementHtml": "<p>Given a string <code>s</code>, find the <strong>first</strong> non-repeating character in it and return its index. If it <strong>does not</strong> exist, return <code>-1</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;leetcode&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The character <code>&#39;l&#39;</code> at index 0 is the first character that does not occur at any other index.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;loveleetcode&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">2</span></p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">s = &quot;aabb&quot;</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">-1</span></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of only lowercase English letters.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: s = \"leetcode\"\n\nOutput: 0\n\nExplanation:\n\nThe character `'l'` at index 0 is the first character that does not occur at any other index.",
+        "Example 2:\n\nInput: s = \"loveleetcode\"\n\nOutput: 2",
+        "Example 3:\n\nInput: s = \"aabb\"\n\nOutput: -1\n\n \n\nConstraints:\n\n\t- `1 <= s.length <= 105`\n\n\t- `s` consists of only lowercase English letters."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/first-unique-character-in-a-string/",
+      "path": "HashMap/387.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def firstUniqChar(self, s):\n        count = {}\n        for ch in s:\n            count[ch] = count.get(ch, 0) + 1\n\n        for i, ch in enumerate(s):\n            if count[ch] == 1:\n                return i\n\n        return -1"
+    },
+    {
+      "id": "560",
+      "title": "Subarray Sum Equals K",
+      "category": "HashMap",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "notes": "",
+      "statement": "Given an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals to `k`.\n\nA subarray is a contiguous non-empty sequence of elements within an array.",
+      "statementHtml": "<p>Given an array of integers <code>nums</code> and an integer <code>k</code>, return <em>the total number of subarrays whose sum equals to</em> <code>k</code>.</p>\n\n<p>A subarray is a contiguous <strong>non-empty</strong> sequence of elements within an array.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,1,1], k = 2\n<strong>Output:</strong> 2\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,3], k = 3\n<strong>Output:</strong> 2\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n\t<li><code>-10<sup>7</sup> &lt;= k &lt;= 10<sup>7</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: nums = [1,1,1], k = 2\nOutput: 2",
+        "Example 2:\n\nInput: nums = [1,2,3], k = 3\nOutput: 2\n\n \n\nConstraints:\n\n\t- `1 <= nums.length <= 2 * 104`\n\n\t- `-1000 <= nums[i] <= 1000`\n\n\t- `-107 <= k <= 107`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/subarray-sum-equals-k/",
+      "path": "HashMap/560.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def subarraySum(self, nums, k):\n        prefix_count = {0: 1}\n        total = 0\n        count = 0\n\n        for n in nums:\n            total += n\n            count += prefix_count.get(total - k, 0)\n            prefix_count[total] = prefix_count.get(total, 0) + 1\n\n        return count"
+    },
+    {
+      "id": "617",
+      "title": "Merge Two Binary Trees",
+      "category": "Tree_BT_BST",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "notes": "",
+      "statement": "You are given two binary trees `root1` and `root2`.\n\nImagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.\n\nReturn the merged tree.\n\nNote: The merging process must start from the root nodes of both trees.",
+      "statementHtml": "<p>You are given two binary trees <code>root1</code> and <code>root2</code>.</p>\n\n<p>Imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.</p>\n\n<p>Return <em>the merged tree</em>.</p>\n\n<p><strong>Note:</strong> The merging process must start from the root nodes of both trees.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/05/merge.jpg\" style=\"width: 600px; height: 163px;\" />\n<pre>\n<strong>Input:</strong> root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]\n<strong>Output:</strong> [3,4,5,5,4,null,7]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> root1 = [1], root2 = [1,2]\n<strong>Output:</strong> [2,2]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in both trees is in the range <code>[0, 2000]</code>.</li>\n\t<li><code>-10<sup>4</sup> &lt;= Node.val &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]\nOutput: [3,4,5,5,4,null,7]",
+        "Example 2:\n\nInput: root1 = [1], root2 = [1,2]\nOutput: [2,2]\n\n \n\nConstraints:\n\n\t- The number of nodes in both trees is in the range `[0, 2000]`.\n\n\t- `-104 <= Node.val <= 104`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/merge-two-binary-trees/",
+      "path": "Tree_BT_BST/617.py",
+      "language": "Python",
+      "solution": "class TreeNode(object):\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution(object):\n    def mergeTrees(self, t1, t2):\n        \n        if not t1 and not t2:\n            return None\n\n        ans = TreeNode((t1.val if t1 else 0) + (t2.val if t2 else 0))\n        ans.left = self.mergeTrees(t1 and t1.left, t2 and t2.left)\n        ans.right = self.mergeTrees(t1 and t1.right, t2 and t2.right)\n        return ans"
+    },
+    {
+      "id": "695",
+      "title": "Max Area of Island",
+      "category": "Graph_BFS_DFS",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union-Find",
+        "Matrix"
+      ],
+      "notes": "",
+      "statement": "You are given an `m x n` binary matrix `grid`. An island is a group of `1`'s (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.\n\nThe area of an island is the number of cells with a value `1` in the island.\n\nReturn the maximum area of an island in `grid`. If there is no island, return `0`.",
+      "statementHtml": "<p>You are given an <code>m x n</code> binary matrix <code>grid</code>. An island is a group of <code>1</code>&#39;s (representing land) connected <strong>4-directionally</strong> (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.</p>\n\n<p>The <strong>area</strong> of an island is the number of cells with a value <code>1</code> in the island.</p>\n\n<p>Return <em>the maximum <strong>area</strong> of an island in </em><code>grid</code>. If there is no island, return <code>0</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/05/01/maxarea1-grid.jpg\" style=\"width: 500px; height: 310px;\" />\n<pre>\n<strong>Input:</strong> grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The answer is not 11, because the island must be connected 4-directionally.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> grid = [[0,0,0,0,0,0,0,0]]\n<strong>Output:</strong> 0\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 50</code></li>\n\t<li><code>grid[i][j]</code> is either <code>0</code> or <code>1</code>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]\nOutput: 6\nExplanation: The answer is not 11, because the island must be connected 4-directionally.",
+        "Example 2:\n\nInput: grid = [[0,0,0,0,0,0,0,0]]\nOutput: 0\n\n \n\nConstraints:\n\n\t- `m == grid.length`\n\n\t- `n == grid[i].length`\n\n\t- `1 <= m, n <= 50`\n\n\t- `grid[i][j]` is either `0` or `1`."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/max-area-of-island/",
+      "path": "Graph_BFS_DFS/695.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def maxAreaOfIsland(self, grid):\n\n        if not grid or not grid[0]:\n            return 0\n\n        rows, cols = len(grid), len(grid[0])\n        visited = set()\n        max_island = 0\n        \n        def dfs(r, c):\n            if r not in range(rows) or c not in range(cols) or (r, c) in visited or grid[r][c] == 0:\n                return 0\n            \n            visited.add((r, c))\n            \n            # Explore 4-directionally and accumulate area.\n            return 1 + dfs(r+1, c) + dfs(r-1, c) + dfs(r, c+1) + dfs(r, c-1)\n        \n        for r in range(rows):\n            for c in range(cols):\n                if grid[r][c] == 1 and (r, c) not in visited:\n                    max_island = max(max_island, dfs(r, c))\n        \n        return max_island\n        "
+    },
+    {
+      "id": "703",
+      "title": "Kth Largest Element in a Stream",
+      "category": "Heap_PriorityQueue",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Design",
+        "Binary Search Tree",
+        "Heap (Priority Queue)",
+        "Binary Tree",
+        "Data Stream"
+      ],
+      "notes": "",
+      "statement": "You are part of a university admissions office and need to keep track of the `kth` highest test score from applicants in real-time. This helps to determine cut-off marks for interviews and admissions dynamically as new applicants submit their scores.\n\nYou are tasked to implement a class which, for a given integer `k`, maintains a stream of test scores and continuously returns the `k`th highest test score after a new score has been submitted. More specifically, we are looking for the `k`th highest score in the sorted list of all scores.\n\nImplement the `KthLargest` class:\n\n\t- `KthLargest(int k, int[] nums)` Initializes the object with the integer `k` and the stream of test scores `nums`.\n\n\t- `int add(int val)` Adds a new test score `val` to the stream and returns the element representing the `kth` largest element in the pool of test scores so far.",
+      "statementHtml": "<p>You are part of a university admissions office and need to keep track of the <code>kth</code> highest test score from applicants in real-time. This helps to determine cut-off marks for interviews and admissions dynamically as new applicants submit their scores.</p>\n\n<p>You are tasked to implement a class which, for a given integer&nbsp;<code>k</code>, maintains a stream of test scores and continuously returns the&nbsp;<code>k</code>th highest test score&nbsp;<strong>after</strong>&nbsp;a new score has been submitted. More specifically, we are looking for the <code>k</code>th highest score in the sorted list of all scores.</p>\n\n<p>Implement the&nbsp;<code>KthLargest</code> class:</p>\n\n<ul>\n\t<li><code>KthLargest(int k, int[] nums)</code> Initializes the object with the integer <code>k</code> and the stream of test scores&nbsp;<code>nums</code>.</li>\n\t<li><code>int add(int val)</code> Adds a new test score&nbsp;<code>val</code> to the stream and returns the element representing the <code>k<sup>th</sup></code> largest element in the pool of test scores so far.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong><br />\n<span class=\"example-io\">[&quot;KthLargest&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;]<br />\n[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[null, 4, 5, 5, 8, 8]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);<br />\nkthLargest.add(3); // return 4<br />\nkthLargest.add(5); // return 5<br />\nkthLargest.add(10); // return 5<br />\nkthLargest.add(9); // return 8<br />\nkthLargest.add(4); // return 8</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong><br />\n<span class=\"example-io\">[&quot;KthLargest&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;]<br />\n[[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[null, 7, 7, 7, 8]</span></p>\n\n<p><strong>Explanation:</strong></p>\nKthLargest kthLargest = new KthLargest(4, [7, 7, 7, 7, 8, 3]);<br />\nkthLargest.add(2); // return 7<br />\nkthLargest.add(10); // return 7<br />\nkthLargest.add(9); // return 7<br />\nkthLargest.add(9); // return 8</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= nums.length + 1</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= val &lt;= 10<sup>4</sup></code></li>\n\t<li>At most <code>10<sup>4</sup></code> calls will be made to <code>add</code>.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput:\n\n[\"KthLargest\", \"add\", \"add\", \"add\", \"add\", \"add\"]\n\n[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]\n\nOutput: [null, 4, 5, 5, 8, 8]\n\nExplanation:\n\nKthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);\n\nkthLargest.add(3); // return 4\n\nkthLargest.add(5); // return 5\n\nkthLargest.add(10); // return 5\n\nkthLargest.add(9); // return 8\n\nkthLargest.add(4); // return 8",
+        "Example 2:\n\nInput:\n\n[\"KthLargest\", \"add\", \"add\", \"add\", \"add\"]\n\n[[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]\n\nOutput: [null, 7, 7, 7, 8]\n\nExplanation:\n\nKthLargest kthLargest = new KthLargest(4, [7, 7, 7, 7, 8, 3]);\n\nkthLargest.add(2); // return 7\n\nkthLargest.add(10); // return 7\n\nkthLargest.add(9); // return 7\n\nkthLargest.add(9); // return 8\n\n \n\nConstraints:\n\n\t- `0 <= nums.length <= 104`\n\n\t- `1 <= k <= nums.length + 1`\n\n\t- `-104 <= nums[i] <= 104`\n\n\t- `-104 <= val <= 104`\n\n\t- At most `104` calls will be made to `add`."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+      "path": "Heap_PriorityQueue/703.py",
+      "language": "Python",
+      "solution": "import heapq\n\n\nclass KthLargest(object):\n    def __init__(self, k, nums):\n        self.k = k\n        self.nums = nums\n        heapq.heapify(self.nums)\n        while len(self.nums) > k:\n            heapq.heappop(self.nums)\n\n    def add(self, val):\n        heapq.heappush(self.nums, val)\n        if len(self.nums) > self.k:\n            heapq.heappop(self.nums)\n\n        return self.nums[0]\n"
+    },
+    {
+      "id": "779",
+      "title": "K-th Symbol in Grammar",
+      "category": "Recursion",
+      "difficulty": "Medium",
+      "tags": [
+        "Math",
+        "Bit Manipulation",
+        "Recursion"
+      ],
+      "notes": "",
+      "statement": "We build a table of `n` rows (1-indexed). We start by writing `0` in the `1st` row. Now in every subsequent row, we look at the previous row and replace each occurrence of `0` with `01`, and each occurrence of `1` with `10`.\n\n\t- For example, for `n = 3`, the `1st` row is `0`, the `2nd` row is `01`, and the `3rd` row is `0110`.\n\nGiven two integer `n` and `k`, return the `kth` (1-indexed) symbol in the `nth` row of a table of `n` rows.",
+      "statementHtml": "<p>We build a table of <code>n</code> rows (<strong>1-indexed</strong>). We start by writing <code>0</code> in the <code>1<sup>st</sup></code> row. Now in every subsequent row, we look at the previous row and replace each occurrence of <code>0</code> with <code>01</code>, and each occurrence of <code>1</code> with <code>10</code>.</p>\n\n<ul>\n\t<li>For example, for <code>n = 3</code>, the <code>1<sup>st</sup></code> row is <code>0</code>, the <code>2<sup>nd</sup></code> row is <code>01</code>, and the <code>3<sup>rd</sup></code> row is <code>0110</code>.</li>\n</ul>\n\n<p>Given two integer <code>n</code> and <code>k</code>, return the <code>k<sup>th</sup></code> (<strong>1-indexed</strong>) symbol in the <code>n<sup>th</sup></code> row of a table of <code>n</code> rows.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 1, k = 1\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> row 1: <u>0</u>\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 2, k = 1\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> \nrow 1: 0\nrow 2: <u>0</u>1\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 2, k = 2\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> \nrow 1: 0\nrow 2: 0<u>1</u>\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 30</code></li>\n\t<li><code>1 &lt;= k &lt;= 2<sup>n - 1</sup></code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: n = 1, k = 1\nOutput: 0\nExplanation: row 1: 0",
+        "Example 2:\n\nInput: n = 2, k = 1\nOutput: 0\nExplanation: \nrow 1: 0\nrow 2: 01",
+        "Example 3:\n\nInput: n = 2, k = 2\nOutput: 1\nExplanation: \nrow 1: 0\nrow 2: 01\n\n \n\nConstraints:\n\n\t- `1 <= n <= 30`\n\n\t- `1 <= k <= 2n - 1`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/k-th-symbol-in-grammar/",
+      "path": "Recursion/779.py",
+      "language": "Python",
+      "solution": "class Solution:\n    def kthGrammar(self, n, k):\n        are_values_same = True\n\n        n = 2**(n - 1)\n        \n        while n != 1:\n            n //= 2\n\n            if k > n:\n                k -= n\n                are_values_same = not are_values_same\n\n        return 0 if are_values_same else 1"
+    },
+    {
+      "id": "929",
+      "title": "Unique Email Addresses",
+      "category": "HashMap",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "String"
+      ],
+      "notes": "",
+      "statement": "Every valid email consists of a local name and a domain name, separated by the `'@'` sign. Besides lowercase letters, the email may contain one or more `'.'` or `'+'`.\n\n\t- For example, in `\"alice@leetcode.com\"`, `\"alice\"` is the local name, and `\"leetcode.com\"` is the domain name.\n\nIf you add periods `'.'` between some characters in the local name part of an email address, mail sent there will be forwarded to the same address without dots in the local name. Note that this rule does not apply to domain names.\n\n\t- For example, `\"alice.z@leetcode.com\"` and `\"alicez@leetcode.com\"` forward to the same email address.\n\nIf you add a plus `'+'` in the local name, everything after the first plus sign will be ignored. This allows certain emails to be filtered. Note that this rule does not apply to domain names.\n\n\t- For example, `\"m.y+name@email.com\"` will be forwarded to `\"my@email.com\"`.\n\nIt is possible to use both of these rules at the same time.\n\nGiven an array of strings `emails` where we send one email to each `emails[i]`, return the number of different addresses that actually receive mails.",
+      "statementHtml": "<p>Every <strong>valid email</strong> consists of a <strong>local name</strong> and a <strong>domain name</strong>, separated by the <code>&#39;@&#39;</code> sign. Besides lowercase letters, the email may contain one or more <code>&#39;.&#39;</code> or <code>&#39;+&#39;</code>.</p>\n\n<ul>\n\t<li>For example, in <code>&quot;alice@leetcode.com&quot;</code>, <code>&quot;alice&quot;</code> is the <strong>local name</strong>, and <code>&quot;leetcode.com&quot;</code> is the <strong>domain name</strong>.</li>\n</ul>\n\n<p>If you add periods <code>&#39;.&#39;</code> between some characters in the <strong>local name</strong> part of an email address, mail sent there will be forwarded to the same address without dots in the local name. Note that this rule <strong>does not apply</strong> to <strong>domain names</strong>.</p>\n\n<ul>\n\t<li>For example, <code>&quot;alice.z@leetcode.com&quot;</code> and <code>&quot;alicez@leetcode.com&quot;</code> forward to the same email address.</li>\n</ul>\n\n<p>If you add a plus <code>&#39;+&#39;</code> in the <strong>local name</strong>, everything after the first plus sign <strong>will be ignored</strong>. This allows certain emails to be filtered. Note that this rule <strong>does not apply</strong> to <strong>domain names</strong>.</p>\n\n<ul>\n\t<li>For example, <code>&quot;m.y+name@email.com&quot;</code> will be forwarded to <code>&quot;my@email.com&quot;</code>.</li>\n</ul>\n\n<p>It is possible to use both of these rules at the same time.</p>\n\n<p>Given an array of strings <code>emails</code> where we send one email to each <code>emails[i]</code>, return <em>the number of different addresses that actually receive mails</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> emails = [&quot;test.email+alex@leetcode.com&quot;,&quot;test.e.mail+bob.cathy@leetcode.com&quot;,&quot;testemail+david@lee.tcode.com&quot;]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> &quot;testemail@leetcode.com&quot; and &quot;testemail@lee.tcode.com&quot; actually receive mails.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> emails = [&quot;a@leetcode.com&quot;,&quot;b@leetcode.com&quot;,&quot;c@leetcode.com&quot;]\n<strong>Output:</strong> 3\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= emails.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= emails[i].length &lt;= 100</code></li>\n\t<li><code>emails[i]</code> consist of lowercase English letters, <code>&#39;+&#39;</code>, <code>&#39;.&#39;</code> and <code>&#39;@&#39;</code>.</li>\n\t<li>Each <code>emails[i]</code> contains exactly one <code>&#39;@&#39;</code> character.</li>\n\t<li>All local and domain names are non-empty.</li>\n\t<li>Local names do not start with a <code>&#39;+&#39;</code> character.</li>\n\t<li>Domain names end with the <code>&quot;.com&quot;</code> suffix.</li>\n\t<li>Domain names must contain at least one character before <code>&quot;.com&quot;</code> suffix.</li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: emails = [\"test.email+alex@leetcode.com\",\"test.e.mail+bob.cathy@leetcode.com\",\"testemail+david@lee.tcode.com\"]\nOutput: 2\nExplanation: \"testemail@leetcode.com\" and \"testemail@lee.tcode.com\" actually receive mails.",
+        "Example 2:\n\nInput: emails = [\"a@leetcode.com\",\"b@leetcode.com\",\"c@leetcode.com\"]\nOutput: 3\n\n \n\nConstraints:\n\n\t- `1 <= emails.length <= 100`\n\n\t- `1 <= emails[i].length <= 100`\n\n\t- `emails[i]` consist of lowercase English letters, `'+'`, `'.'` and `'@'`.\n\n\t- Each `emails[i]` contains exactly one `'@'` character.\n\n\t- All local and domain names are non-empty.\n\n\t- Local names do not start with a `'+'` character.\n\n\t- Domain names end with the `\".com\"` suffix.\n\n\t- Domain names must contain at least one character before `\".com\"` suffix."
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/unique-email-addresses/",
+      "path": "HashMap/929.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def numUniqueEmails(self, emails):\n        unique_email = set()\n\n        for email in emails:\n            local, domain = email.split(\"@\")\n            plus_index = local.find(\"+\")\n            if plus_index != -1:\n                local = local[:plus_index]\n            local = local.replace(\".\", \"\")\n            unique_email.add(local + \"@\" + domain)\n\n        return len(unique_email)"
+    },
+    {
+      "id": "1011",
+      "title": "Capacity To Ship Packages Within D Days",
+      "category": "BinarySearch",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "notes": "",
+      "statement": "A conveyor belt has packages that must be shipped from one port to another within `days` days.\n\nThe `ith` package on the conveyor belt has a weight of `weights[i]`. Each day, we load the ship with packages on the conveyor belt (in the order given by `weights`). We may not load more weight than the maximum weight capacity of the ship.\n\nReturn the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within `days` days.",
+      "statementHtml": "<p>A conveyor belt has packages that must be shipped from one port to another within <code>days</code> days.</p>\n\n<p>The <code>i<sup>th</sup></code> package on the conveyor belt has a weight of <code>weights[i]</code>. Each day, we load the ship with packages on the conveyor belt (in the order given by <code>weights</code>). We may not load more weight than the maximum weight capacity of the ship.</p>\n\n<p>Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within <code>days</code> days.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> weights = [1,2,3,4,5,6,7,8,9,10], days = 5\n<strong>Output:</strong> 15\n<strong>Explanation:</strong> A ship capacity of 15 is the minimum to ship all the packages in 5 days like this:\n1st day: 1, 2, 3, 4, 5\n2nd day: 6, 7\n3rd day: 8\n4th day: 9\n5th day: 10\n\nNote that the cargo must be shipped in the order given, so using a ship of capacity 14 and splitting the packages into parts like (2, 3, 4, 5), (1, 6, 7), (8), (9), (10) is not allowed.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> weights = [3,2,2,4,1,4], days = 3\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> A ship capacity of 6 is the minimum to ship all the packages in 3 days like this:\n1st day: 3, 2\n2nd day: 2, 4\n3rd day: 1, 4\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> weights = [1,2,3,1,1], days = 4\n<strong>Output:</strong> 3\n<strong>Explanation:</strong>\n1st day: 1\n2nd day: 2\n3rd day: 3\n4th day: 1, 1\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= days &lt;= weights.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= weights[i] &lt;= 500</code></li>\n</ul>\n",
+      "examples": [
+        "Example 1:\n\nInput: weights = [1,2,3,4,5,6,7,8,9,10], days = 5\nOutput: 15\nExplanation: A ship capacity of 15 is the minimum to ship all the packages in 5 days like this:\n1st day: 1, 2, 3, 4, 5\n2nd day: 6, 7\n3rd day: 8\n4th day: 9\n5th day: 10\n\nNote that the cargo must be shipped in the order given, so using a ship of capacity 14 and splitting the packages into parts like (2, 3, 4, 5), (1, 6, 7), (8), (9), (10) is not allowed.",
+        "Example 2:\n\nInput: weights = [3,2,2,4,1,4], days = 3\nOutput: 6\nExplanation: A ship capacity of 6 is the minimum to ship all the packages in 3 days like this:\n1st day: 3, 2\n2nd day: 2, 4\n3rd day: 1, 4",
+        "Example 3:\n\nInput: weights = [1,2,3,1,1], days = 4\nOutput: 3\nExplanation:\n1st day: 1\n2nd day: 2\n3rd day: 3\n4th day: 1, 1\n\n \n\nConstraints:\n\n\t- `1 <= days <= weights.length <= 5 * 104`\n\n\t- `1 <= weights[i] <= 500`"
+      ],
+      "constraints": [],
+      "sourceUrl": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/",
+      "path": "BinarySearch/1011.py",
+      "language": "Python",
+      "solution": "class Solution(object):\n    def shipWithinDays(self, weights, D):\n        left, right = max(weights), sum(weights)\n        while left < right:\n            mid, need, cur = (left + right) / 2, 1, 0\n            for w in weights:\n                if cur + w > mid:\n                    need += 1\n                    cur = 0\n                cur += w\n            if need > D: left = mid + 1\n            else: right = mid\n        return left\n        "
+    }
+  ]
+}
