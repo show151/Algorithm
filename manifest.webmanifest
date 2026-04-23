@@ -1,0 +1,17 @@
+{
+  "name": "AlgoBoard",
+  "short_name": "AlgoBoard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4efe7",
+  "theme_color": "#bf5b04",
+  "description": "LeetCode practice, solve, and review on mobile.",
+  "icons": [
+    {
+      "src": "/assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

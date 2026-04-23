@@ -36,6 +36,22 @@ python sync_leetcode_meta.py
 python generate_site.py
 ```
 
+## スマホ単体運用
+
+Vercel に上げたあと、スマホでホーム画面追加して使う想定です。
+
+- `vendor/pyodide/` に Pyodide 配布ファイルを置く
+- `manifest.webmanifest` と `service-worker.js` で PWA 化
+- 一度開けば主要ファイルをキャッシュ
+
+Pyodide は次のファイルを `vendor/pyodide/` に置きます。
+
+- `pyodide.js`
+- `pyodide.asm.js`
+- `pyodide.asm.wasm`
+- `python_stdlib.zip`
+- `pyodide-lock.json`
+
 ## Practice モード
 
 `Mode` を `Practice` にすると、正解コードを隠した状態で自分で実装できます。
