@@ -142,6 +142,21 @@ body {
   color: var(--muted);
 }
 
+.toolbar-action {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.toolbar-status {
+  min-height: 24px;
+  margin: 10px 4px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 input,
 select,
 button {

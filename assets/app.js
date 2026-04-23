@@ -11,6 +11,7 @@ const state = {
   solveResults: {},
   pyodideReady: false,
   pyodideLoading: false,
+  cacheStatus: "",
 };
 
 const heroStats = document.getElementById("hero-stats");
@@ -21,6 +22,8 @@ const searchInput = document.getElementById("search-input");
 const problemList = document.getElementById("problem-list");
 const detailPanel = document.getElementById("detail-panel");
 const problemCount = document.getElementById("problem-count");
+const clearCacheButton = document.getElementById("clear-cache-button");
+const cacheStatus = document.getElementById("cache-status");
 
 const STORAGE_KEYS = {
   drafts: "algoboard-practice-drafts",
@@ -1116,6 +1119,28 @@ function renderStats(summary, categoryCounts) {
     .join("");
 }
 
+async function clearAppCache() {
+  try {
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((key) => caches.delete(key)));
+    }
+
+    localStorage.removeItem(STORAGE_KEYS.drafts);
+    localStorage.removeItem(STORAGE_KEYS.solveDrafts);
+    localStorage.removeItem(STORAGE_KEYS.mastery);
+
+    state.drafts = {};
+    state.solveDrafts = {};
+    state.mastery = {};
+    state.solveTests = {};
+    state.solveResults = {};
+    state.cacheStatus = "キャッシュと保存データを削除しました。再読み込みで最新状態になります。";
+  } catch (error) {
+    state.cacheStatus = `削除に失敗しました: ${String(error.message || error)}`;
+  }
+}
+
 function populateCategories(categoryCounts) {
   Object.keys(categoryCounts).forEach((category) => {
     const option = document.createElement("option");
@@ -1755,6 +1780,15 @@ async function init() {
     state.viewMode = event.target.value;
     renderDetail();
   });
+  clearCacheButton?.addEventListener("click", async () => {
+    await clearAppCache();
+    if (cacheStatus) {
+      cacheStatus.textContent = state.cacheStatus;
+    }
+  });
+  if (cacheStatus) {
+    cacheStatus.textContent = state.cacheStatus;
+  }
 
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./service-worker.js").catch(() => {});
