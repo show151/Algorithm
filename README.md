@@ -1,4 +1,4 @@
-# AlgoBoard
+# Algo Atelier
 
 LeetCode の Python 解答を、カテゴリ別に見返せるローカル Web アプリです。
 

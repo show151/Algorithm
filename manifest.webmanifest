@@ -1,10 +1,10 @@
 {
-  "name": "AlgoBoard",
-  "short_name": "AlgoBoard",
+  "name": "Algo Atelier",
+  "short_name": "Algo Atelier",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4efe7",
-  "theme_color": "#bf5b04",
+  "background_color": "#f7faff",
+  "theme_color": "#1a73e8",
   "description": "LeetCode practice, solve, and review on mobile.",
   "icons": [
     {

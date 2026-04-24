@@ -3,6 +3,7 @@ const state = {
   filtered: [],
   activeId: null,
   viewMode: "browse",
+  fundamentalsTopicIndex: 0,
   revealedAnswers: {},
   drafts: {},
   solveDrafts: {},
@@ -24,6 +25,9 @@ const detailPanel = document.getElementById("detail-panel");
 const problemCount = document.getElementById("problem-count");
 const clearCacheButton = document.getElementById("clear-cache-button");
 const cacheStatus = document.getElementById("cache-status");
+const clearCacheModal = document.getElementById("clear-cache-modal");
+const clearCacheCancel = document.getElementById("clear-cache-cancel");
+const clearCacheConfirm = document.getElementById("clear-cache-confirm");
 
 const STORAGE_KEYS = {
   drafts: "algoboard-practice-drafts",
@@ -422,6 +426,189 @@ const PROBLEM_HINTS = {
     "『判定できる最小値』なので、capacity を二分探索します。",
   ],
 };
+
+const FUNDAMENTALS_TRACK = [
+  {
+    title: "Array / String",
+    focus: "基本操作と走査の文法",
+    points: [
+      "list の append / pop / slice など、まずは配列操作の型を覚える。",
+      "文字列は immutable なので、繰り返し連結より join を使う。",
+    ],
+    orders: [
+      { operation: "arr[i] 参照", time: "O(1)", space: "O(1)" },
+      { operation: "append / pop (末尾)", time: "O(1)", space: "O(1)" },
+      { operation: "insert(0, x) / pop(0)", time: "O(n)", space: "O(1)" },
+      { operation: "''.join(parts)", time: "O(n)", space: "O(n)" },
+    ],
+    template: `# Array / String の基本文法\ndef array_string_basics(arr, s):\n    first = arr[0] if arr else None  # 先頭参照\n    arr.append(99)  # 末尾追加\n    last = arr.pop() if arr else None  # 末尾削除\n\n    for i, value in enumerate(arr):  # 添字つき走査\n        pass\n\n    parts = [ch.upper() for ch in s]  # 文字ごと変換\n    merged = "".join(parts)  # 文字列結合\n    return first, last, merged`,
+  },
+  {
+    title: "Hash Map / Set",
+    focus: "辞書と集合の文法",
+    points: [
+      "存在確認は set、対応関係や回数は dict を使う。",
+      "dict.get(key, default) と in の使い分けに慣れる。",
+    ],
+    orders: [
+      { operation: "key in dict / set", time: "平均 O(1)", space: "O(1)" },
+      { operation: "dict[key] = value", time: "平均 O(1)", space: "O(1)" },
+      { operation: "hash 衝突時", time: "最悪 O(n)", space: "O(1)" },
+      { operation: "要素 n 個保持", time: "-", space: "O(n)" },
+    ],
+    template: `# Hash Map / Set の基本文法\ndef hashmap_set_basics(words):\n    counts = {}  # 文字列 -> 出現回数\n    seen = set()  # 出現済みの集合\n\n    for word in words:\n        counts[word] = counts.get(word, 0) + 1  # 回数更新\n        seen.add(word)  # 集合に追加\n\n    has_python = "python" in seen  # 存在確認\n    freq_python = counts.get("python", 0)  # 未登録なら 0\n    return has_python, freq_python, counts`,
+  },
+  {
+    title: "Stack / Queue",
+    focus: "LIFO / FIFO の操作文法",
+    points: [
+      "stack は list、queue は collections.deque を使う。",
+      "取り出し順 (後入れ先出し / 先入れ先出し) を意識する。",
+    ],
+    orders: [
+      { operation: "stack.append / stack.pop", time: "O(1)", space: "O(1)" },
+      { operation: "deque.append / popleft", time: "O(1)", space: "O(1)" },
+      { operation: "queue 全件走査", time: "O(n)", space: "O(1)" },
+      { operation: "n 要素保持", time: "-", space: "O(n)" },
+    ],
+    template: `from collections import deque\n\n# Stack / Queue の基本文法\ndef stack_queue_basics(values):\n    stack = []\n    for value in values:\n        stack.append(value)  # push\n    top = stack.pop() if stack else None  # pop\n\n    queue = deque(values)\n    first = queue.popleft() if queue else None  # 先頭を取り出す\n    queue.append(999)  # 末尾に追加\n\n    return top, first, list(queue)`,
+  },
+  {
+    title: "Linked List",
+    focus: "ノード参照とつなぎ替え",
+    points: [
+      "curr.next を書き換える前に、次ノードを退避する。",
+      "つなぎ替えは prev / curr / nxt の3変数で追う。",
+    ],
+    orders: [
+      { operation: "先頭ノード参照", time: "O(1)", space: "O(1)" },
+      { operation: "先頭挿入/削除", time: "O(1)", space: "O(1)" },
+      { operation: "位置 i まで走査", time: "O(n)", space: "O(1)" },
+      { operation: "全ノード保持", time: "-", space: "O(n)" },
+    ],
+    template: `# Linked List の基本文法\ndef reverse_list(head):\n    prev = None  # 反転後の前ノード\n    curr = head  # 現在ノード\n\n    while curr:\n        nxt = curr.next  # 次ノードを退避\n        curr.next = prev  # ポインタ反転\n        prev = curr  # prev を進める\n        curr = nxt  # curr を進める\n\n    return prev  # 新しい先頭`,
+  },
+  {
+    title: "Two Pointers / Sliding Window",
+    focus: "2本ポインタの移動ルール",
+    points: [
+      "右を広げ、条件を満たしたら左を縮める流れを固定する。",
+      "left / right がいつ動くかを if / while で明確にする。",
+    ],
+    orders: [
+      { operation: "left/right 単調移動", time: "O(n)", space: "O(1)" },
+      { operation: "各要素の再訪問", time: "高々定数回", space: "-" },
+      { operation: "補助配列なし", time: "-", space: "O(1)" },
+    ],
+    template: `# Sliding Window の基本文法\ndef window_basics(nums, limit):\n    left = 0\n    current = 0\n\n    for right, value in enumerate(nums):\n        current += value  # 右を広げる\n\n        while current > limit and left <= right:\n            current -= nums[left]  # 左を縮める\n            left += 1\n\n        # ここで [left, right] が条件を満たす区間\n\n    return left`,
+  },
+  {
+    title: "Binary Search",
+    focus: "範囲を半分に狭める文法",
+    points: [
+      "[left, right) か [left, right] を最初に固定する。",
+      "更新時は left/right のどちらを mid に寄せるかを統一する。",
+    ],
+    orders: [
+      { operation: "探索ステップ数", time: "O(log n)", space: "O(1)" },
+      { operation: "1 回比較", time: "O(1)", space: "O(1)" },
+      { operation: "再帰版", time: "O(log n)", space: "O(log n)" },
+    ],
+    template: `# Binary Search の基本文法 ([left, right))\ndef lower_bound(nums, target):\n    left = 0\n    right = len(nums)\n\n    while left < right:\n        mid = (left + right) // 2\n        if nums[mid] < target:\n            left = mid + 1  # 右半分へ\n        else:\n            right = mid  # 左半分へ\n\n    return left  # 条件を満たす最左位置`,
+  },
+  {
+    title: "Recursion / Backtracking",
+    focus: "再帰の書き方と巻き戻し",
+    points: [
+      "終了条件 -> 処理 -> 再帰呼び出し の順番を崩さない。",
+      "可変オブジェクトは append 後に pop で戻す。",
+    ],
+    orders: [
+      { operation: "深さ d の再帰呼び出し", time: "O(d)", space: "O(d)" },
+      { operation: "分岐 b, 深さ d", time: "O(b^d)", space: "O(d)" },
+      { operation: "結果配列保持", time: "-", space: "出力依存" },
+    ],
+    template: `# Recursion / Backtracking の基本文法\ndef build_paths(nums):\n    result = []\n    path = []\n\n    def dfs(index):\n        if index == len(nums):\n            result.append(path[:])  # 到達状態を保存\n            return\n\n        path.append(nums[index])  # 選ぶ\n        dfs(index + 1)\n        path.pop()  # 戻す\n\n        dfs(index + 1)  # 選ばない\n\n    dfs(0)\n    return result`,
+  },
+  {
+    title: "Tree DFS / BFS",
+    focus: "木構造の基本探索文法",
+    points: [
+      "DFS は再帰、BFS は queue でレベル順に処理する。",
+      "None 判定を最初に置くと実装が安定する。",
+    ],
+    orders: [
+      { operation: "DFS (全ノード訪問)", time: "O(n)", space: "O(h)" },
+      { operation: "BFS (全ノード訪問)", time: "O(n)", space: "O(w)" },
+      { operation: "平衡木の高さ h", time: "-", space: "O(log n)" },
+    ],
+    template: `# Tree DFS の基本文法\ndef preorder(root):\n    if not root:\n        return []  # 空木\n\n    left_part = preorder(root.left)  # 左部分木\n    right_part = preorder(root.right)  # 右部分木\n    return [root.val] + left_part + right_part  # 根 -> 左 -> 右`,
+  },
+  {
+    title: "Heap / Priority Queue",
+    focus: "優先度付き取り出しの文法",
+    points: [
+      "heapq は min-heap。最小値を高速に取り出せる。",
+      "heappush と heappop をペアで使う。",
+    ],
+    orders: [
+      { operation: "heappush", time: "O(log n)", space: "O(1)" },
+      { operation: "heappop", time: "O(log n)", space: "O(1)" },
+      { operation: "heap[0] 参照", time: "O(1)", space: "O(1)" },
+      { operation: "heapify", time: "O(n)", space: "O(1)" },
+    ],
+    template: `import heapq\n\n# Heap の基本文法\ndef heap_basics(values):\n    heap = []\n\n    for value in values:\n        heapq.heappush(heap, value)  # 要素追加\n\n    smallest = heap[0] if heap else None  # 最小値参照\n    popped = heapq.heappop(heap) if heap else None  # 最小値取り出し\n\n    return smallest, popped, heap`,
+  },
+  {
+    title: "Dynamic Programming",
+    focus: "状態配列の基本文法",
+    points: [
+      "dp[i] の意味を先に決める。",
+      "初期値と遷移式を分けて書く。",
+    ],
+    orders: [
+      { operation: "1 次元 DP 更新", time: "O(n)", space: "O(n)" },
+      { operation: "2 次元 DP 更新", time: "O(nm)", space: "O(nm)" },
+      { operation: "ローリング配列最適化", time: "O(n)", space: "O(1)" },
+    ],
+    template: `# Dynamic Programming の基本文法\ndef dp_basics(n):\n    if n <= 1:\n        return n\n\n    dp = [0] * (n + 1)  # 状態配列\n    dp[1] = 1  # 初期値\n\n    for i in range(2, n + 1):\n        dp[i] = dp[i - 1] + dp[i - 2]  # 遷移式\n\n    return dp[n]  # 目的の状態`,
+  },
+];
+
+function renderFundamentalsOrderTable(topic) {
+  const rows = (topic.orders || [])
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.operation)}</td>
+          <td>${escapeHtml(row.time)}</td>
+          <td>${escapeHtml(row.space)}</td>
+        </tr>
+      `,
+    )
+    .join("");
+
+  if (!rows) {
+    return `<p class="detail-notes">このテーマのオーダー表は未登録です。</p>`;
+  }
+
+  return `
+    <div class="fundamentals-order-wrap">
+      <table class="fundamentals-order-table">
+        <thead>
+          <tr>
+            <th>操作</th>
+            <th>時間</th>
+            <th>空間</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -886,6 +1073,187 @@ function normalizeDisplayText(value) {
   return value.replaceAll("\\n", "\n");
 }
 
+function leadingSpaceCount(value) {
+  const match = value.match(/^\s*/);
+  return match ? match[0].length : 0;
+}
+
+function sanitizeFlowLabel(value) {
+  return value
+    .replaceAll('"', "'")
+    .replaceAll("{", "(")
+    .replaceAll("}", ")")
+    .replaceAll("<", "(")
+    .replaceAll(">", ")")
+    .trim();
+}
+
+function normalizeFlowStep(line) {
+  const trimmed = line.trim();
+  if (!trimmed || trimmed.startsWith("#")) {
+    return null;
+  }
+  if (trimmed.startsWith('"""') || trimmed.startsWith("'''")) {
+    return null;
+  }
+
+  const clipped = trimmed.length > 68 ? `${trimmed.slice(0, 65)}...` : trimmed;
+  if (trimmed.startsWith("if ")) {
+    return { kind: "decision", label: `条件: ${sanitizeFlowLabel(clipped.slice(3))}` };
+  }
+  if (trimmed.startsWith("elif ")) {
+    return { kind: "decision", label: `追加条件: ${sanitizeFlowLabel(clipped.slice(5))}` };
+  }
+  if (trimmed === "else:") {
+    return { kind: "decision", label: "それ以外" };
+  }
+  if (trimmed.startsWith("for ")) {
+    return { kind: "loop", label: sanitizeFlowLabel(clipped) };
+  }
+  if (trimmed.startsWith("while ")) {
+    return { kind: "loop", label: sanitizeFlowLabel(clipped) };
+  }
+  if (trimmed.startsWith("return ") || trimmed === "return") {
+    return { kind: "return", label: `戻り値: ${sanitizeFlowLabel(clipped)}` };
+  }
+  if (trimmed.startsWith("break") || trimmed.startsWith("continue")) {
+    return { kind: "process", label: `繰り返し制御: ${sanitizeFlowLabel(clipped)}` };
+  }
+
+  return { kind: "process", label: `処理: ${sanitizeFlowLabel(clipped)}` };
+}
+
+function extractPrimaryMethodLines(solution) {
+  const lines = solution.split(/\r?\n/);
+  const methodHeaderIndex = lines.findIndex((line) => {
+    const trimmed = line.trim();
+    return trimmed.startsWith("def ") || trimmed.startsWith("async def ");
+  });
+
+  if (methodHeaderIndex === -1) {
+    return lines;
+  }
+
+  const methodIndent = leadingSpaceCount(lines[methodHeaderIndex]);
+  const body = [];
+  for (let index = methodHeaderIndex + 1; index < lines.length; index += 1) {
+    const line = lines[index];
+    const trimmed = line.trim();
+    if (!trimmed) {
+      continue;
+    }
+    const indent = leadingSpaceCount(line);
+    if (indent <= methodIndent && (trimmed.startsWith("def ") || trimmed.startsWith("async def ") || trimmed.startsWith("class "))) {
+      break;
+    }
+    body.push(line);
+  }
+
+  return body.length ? body : lines;
+}
+
+function extractFlowSteps(solution) {
+  const lines = extractPrimaryMethodLines(solution);
+  const steps = [];
+  const maxSteps = 48;
+
+  for (const line of lines) {
+    const step = normalizeFlowStep(line);
+    if (step) {
+      steps.push(step);
+    }
+    if (steps.length >= maxSteps) {
+      steps.push({ kind: "ellipsis", label: "以降の処理も続く" });
+      break;
+    }
+  }
+
+  return steps;
+}
+
+function buildFlowchartDefinition(problem) {
+  const steps = extractFlowSteps(problem.solution);
+  const title = sanitizeFlowLabel(`${problem.id} ${problem.title}`);
+  const definitions = ["flowchart TD", `N0([開始: ${title}])`, "NEND([終了])"];
+  const edges = [];
+  let previous = "N0";
+  let index = 1;
+  let hasReturn = false;
+  let hasLinearStep = false;
+
+  for (const step of steps) {
+    const nodeId = `N${index}`;
+    index += 1;
+
+    if (step.kind === "decision") {
+      definitions.push(`${nodeId}{"${step.label}"}`);
+    } else if (step.kind === "loop") {
+      definitions.push(`${nodeId}["繰り返し: ${step.label}"]`);
+    } else if (step.kind === "return") {
+      definitions.push(`${nodeId}(["${step.label}"])`);
+      hasReturn = true;
+    } else if (step.kind === "ellipsis") {
+      definitions.push(`${nodeId}["${step.label}"]`);
+    } else {
+      definitions.push(`${nodeId}["${step.label}"]`);
+    }
+
+    edges.push(`${previous} --> ${nodeId}`);
+
+    if (step.kind === "return") {
+      edges.push(`${nodeId} --> NEND`);
+      continue;
+    }
+
+    previous = nodeId;
+    hasLinearStep = true;
+  }
+
+  if (!hasReturn || hasLinearStep) {
+    edges.push(`${previous} --> NEND`);
+  }
+
+  return [...definitions, ...edges].join("\n");
+}
+
+async function renderBrowseFlowchart() {
+  const block = document.getElementById("flowchart-block");
+  if (!block) {
+    return;
+  }
+
+  const source = block.textContent;
+  if (!source || typeof window.mermaid === "undefined") {
+    return;
+  }
+
+  try {
+    if (!window.__algoboardMermaidInitialized) {
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: "base",
+        securityLevel: "loose",
+        themeVariables: {
+          fontFamily: "Bahnschrift, Yu Gothic UI, sans-serif",
+          primaryColor: "#fff6ea",
+          primaryTextColor: "#2d241c",
+          primaryBorderColor: "#c79a70",
+          lineColor: "#8f6a47",
+          tertiaryColor: "#f4efe7",
+        },
+      });
+      window.__algoboardMermaidInitialized = true;
+    }
+
+    const chartId = `algoboard-flow-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+    const rendered = await window.mermaid.render(chartId, source);
+    block.innerHTML = rendered.svg;
+    block.classList.add("is-rendered");
+  } catch {
+    block.classList.add("flowchart-fallback");
+  }
+}
+
 function loadStoredState() {
   try {
     state.drafts = JSON.parse(localStorage.getItem(STORAGE_KEYS.drafts) || "{}");
@@ -1141,6 +1509,13 @@ async function clearAppCache() {
   }
 }
 
+async function clearCacheAndSyncStatus() {
+  await clearAppCache();
+  if (cacheStatus) {
+    cacheStatus.textContent = state.cacheStatus;
+  }
+}
+
 function populateCategories(categoryCounts) {
   Object.keys(categoryCounts).forEach((category) => {
     const option = document.createElement("option");
@@ -1233,6 +1608,12 @@ function renderProblemList() {
 }
 
 function renderDetail() {
+  if (state.viewMode === "fundamentals") {
+    detailPanel.innerHTML = renderFundamentalsPanel();
+    bindDetailEvents(currentProblem() || { id: "" });
+    return;
+  }
+
   const activeProblem = currentProblem();
 
   if (!activeProblem) {
@@ -1286,13 +1667,82 @@ function renderDetail() {
   `;
 
   bindDetailEvents(activeProblem);
+  if (state.viewMode === "browse") {
+    renderBrowseFlowchart();
+  }
 }
 
 function renderBrowsePanel(problem) {
+  const flowchartDefinition = buildFlowchartDefinition(problem);
+
   return `
     <section class="detail-section">
       <h3>Solution</h3>
       <pre><code>${escapeHtml(problem.solution)}</code></pre>
+    </section>
+
+    <section class="detail-section">
+      <h3>Flowchart</h3>
+      <p class="detail-notes">解答コードのメソッド本体をもとに、条件分岐・ループ・戻り値を日本語で図示しています。長い処理は「以降の処理も続く」として省略表示します。</p>
+      <div id="flowchart-block" class="flowchart-block mermaid">${escapeHtml(flowchartDefinition)}</div>
+    </section>
+  `;
+}
+
+function renderFundamentalsPanel() {
+  const totalTopics = FUNDAMENTALS_TRACK.length;
+  const safeIndex = Math.min(Math.max(state.fundamentalsTopicIndex, 0), totalTopics - 1);
+  state.fundamentalsTopicIndex = safeIndex;
+  const topic = FUNDAMENTALS_TRACK[safeIndex];
+
+  return `
+    <section class="detail-section fundamentals-panel">
+      <div class="practice-header">
+        <div>
+          <h3>Fundamentals</h3>
+          <p class="detail-notes">アルゴリズムとデータ構造の基本文法を、用途とテンプレートで横断的に学ぶモードです。</p>
+        </div>
+      </div>
+
+      <div class="fundamentals-nav">
+        <button class="action-button" data-action="fund-prev" ${safeIndex === 0 ? "disabled" : ""}>前のテーマ</button>
+        <label class="filter fundamentals-topic-select-wrap">
+          <span>Theme</span>
+          <select id="fundamentals-topic-select">
+            ${FUNDAMENTALS_TRACK.map((entry, index) => `<option value="${index}" ${index === safeIndex ? "selected" : ""}>${index + 1}. ${entry.title}</option>`).join("")}
+          </select>
+        </label>
+        <button class="action-button" data-action="fund-next" ${safeIndex === totalTopics - 1 ? "disabled" : ""}>次のテーマ</button>
+      </div>
+
+      <section class="fundamentals-intro">
+        <div class="prompt-card">
+          <strong>使い方</strong>
+          <ul class="constraint-list">
+            <li>まずは 1 カテゴリ選び、テンプレを手打ちで再現する。</li>
+            <li>次にサンプル入力を 2 つ作って挙動を確認する。</li>
+            <li>慣れたら同カテゴリの問題に戻って Practice / Solve で実戦する。</li>
+          </ul>
+        </div>
+      </section>
+
+      <article class="practice-card fundamentals-card fundamentals-single-card">
+        <div class="practice-card-head">
+          <strong>${safeIndex + 1}. ${topic.title}</strong>
+          <span>${topic.focus}</span>
+        </div>
+
+        <ul class="constraint-list">
+          ${topic.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+        </ul>
+
+        <section class="detail-section fundamentals-order-section">
+          <h3>Order</h3>
+          ${renderFundamentalsOrderTable(topic)}
+        </section>
+
+        <pre><code>${escapeHtml(topic.template)}</code></pre>
+      </article>
     </section>
   `;
 }
@@ -1312,8 +1762,9 @@ function renderPracticePanel(problem) {
         </div>
         <div class="practice-actions">
           <button class="action-button" data-action="random-problem">Random</button>
-          <button class="action-button accent-button" data-action="toggle-answer">
-            ${revealed ? "答えを隠す" : "答えを見る"}
+          <button class="action-button accent-button toggle-answer-button ${revealed ? "is-on" : ""}" data-action="toggle-answer" aria-pressed="${revealed ? "true" : "false"}">
+            <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+            <span>${revealed ? "答えを隠す" : "答えを見る"}</span>
           </button>
         </div>
       </div>
@@ -1416,8 +1867,9 @@ function renderSolvePanel(problem) {
         </div>
         <div class="practice-actions">
           <button class="action-button" data-action="random-problem">Random</button>
-          <button class="action-button accent-button" data-action="toggle-answer">
-            ${revealed ? "解答を隠す" : "解答を見る"}
+          <button class="action-button accent-button toggle-answer-button ${revealed ? "is-on" : ""}" data-action="toggle-answer" aria-pressed="${revealed ? "true" : "false"}">
+            <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+            <span>${revealed ? "解答を隠す" : "解答を見る"}</span>
           </button>
         </div>
       </div>
@@ -1595,6 +2047,7 @@ function handleEditorKeydown(event) {
 }
 
 function bindDetailEvents(problem) {
+  const fundamentalsTopicSelect = document.getElementById("fundamentals-topic-select");
   const practiceEditor = document.getElementById("practice-editor");
   const practiceLineNumbers = document.getElementById("practice-line-numbers");
   const solveEditor = document.getElementById("solve-editor");
@@ -1626,12 +2079,29 @@ function bindDetailEvents(problem) {
     updateEditorLineNumbers(solveEditor, solveLineNumbers);
   }
 
+  if (fundamentalsTopicSelect) {
+    fundamentalsTopicSelect.addEventListener("change", (event) => {
+      state.fundamentalsTopicIndex = Number(event.target.value) || 0;
+      renderDetail();
+    });
+  }
+
   detailPanel.querySelectorAll("[data-action]").forEach((element) => {
     element.addEventListener("click", async () => {
       const { action, value } = element.dataset;
 
       if (action === "toggle-answer") {
         state.revealedAnswers[problem.id] = !state.revealedAnswers[problem.id];
+        renderDetail();
+      }
+
+      if (action === "fund-prev") {
+        state.fundamentalsTopicIndex = Math.max(0, state.fundamentalsTopicIndex - 1);
+        renderDetail();
+      }
+
+      if (action === "fund-next") {
+        state.fundamentalsTopicIndex = Math.min(FUNDAMENTALS_TRACK.length - 1, state.fundamentalsTopicIndex + 1);
         renderDetail();
       }
 
@@ -1781,9 +2251,34 @@ async function init() {
     renderDetail();
   });
   clearCacheButton?.addEventListener("click", async () => {
-    await clearAppCache();
-    if (cacheStatus) {
-      cacheStatus.textContent = state.cacheStatus;
+    if (clearCacheModal?.showModal) {
+      clearCacheModal.showModal();
+      return;
+    }
+    if (window.confirm("キャッシュと保存データを削除します。よろしいですか？")) {
+      await clearCacheAndSyncStatus();
+    }
+  });
+
+  clearCacheCancel?.addEventListener("click", () => {
+    clearCacheModal?.close();
+  });
+
+  clearCacheConfirm?.addEventListener("click", async () => {
+    clearCacheModal?.close();
+    await clearCacheAndSyncStatus();
+  });
+
+  clearCacheModal?.addEventListener("click", (event) => {
+    const dialog = event.currentTarget;
+    const rect = dialog.getBoundingClientRect();
+    const isOutside =
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom;
+    if (isOutside) {
+      clearCacheModal.close();
     }
   });
   if (cacheStatus) {

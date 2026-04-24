@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AlgoBoard</title>
-    <meta name="theme-color" content="#bf5b04" />
+    <title>Algo Atelier</title>
+    <meta name="theme-color" content="#1a73e8" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="AlgoBoard" />
+    <meta name="apple-mobile-web-app-title" content="Algo Atelier" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/style.css" />
@@ -18,11 +21,8 @@
 
     <main class="shell">
       <section class="hero">
-        <p class="eyebrow">PERSONAL LEETCODE</p>
-        <h1>AlgoBoard</h1>
-        <p class="hero-copy">
-          いま書いている LeetCode の解答を、検索できる自分専用の問題集としてまとめるローカルサイト。
-        </p>
+        <p class="eyebrow">LEETCODE STUDY SPACE</p>
+        <h1>Algo Atelier</h1>
         <div class="hero-stats" id="hero-stats"></div>
       </section>
 
@@ -47,12 +47,13 @@
             <option value="Unknown">Unknown</option>
           </select>
         </label>
-        <label class="filter">
+        <label class="filter filter-mode">
           <span>Mode</span>
           <select id="view-mode-select">
             <option value="browse">Browse</option>
             <option value="practice">Practice</option>
             <option value="solve">Solve</option>
+            <option value="fundamentals">Fundamentals</option>
           </select>
         </label>
         <div class="toolbar-action">
@@ -83,7 +84,21 @@
       </section>
     </main>
 
+    <dialog id="clear-cache-modal" class="app-modal" aria-labelledby="clear-cache-modal-title">
+      <form method="dialog" class="app-modal-card">
+        <h2 id="clear-cache-modal-title">キャッシュを削除しますか？</h2>
+        <p>
+          Practice/Solve の下書きや自己評価も削除されます。この操作は元に戻せません。
+        </p>
+        <div class="app-modal-actions">
+          <button id="clear-cache-cancel" type="button">キャンセル</button>
+          <button id="clear-cache-confirm" type="button" class="accent-button">削除する</button>
+        </div>
+      </form>
+    </dialog>
+
     <script src="vendor/pyodide/pyodide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
     <script src="assets/app.js" defer></script>
   </body>
 </html>
