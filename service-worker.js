@@ -1,4 +1,4 @@
-const CACHE_NAME = "algoboard-v1";
+const CACHE_NAME = "algoboard-v2";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -7,6 +7,9 @@ const APP_SHELL = [
   "/assets/app.js",
   "/assets/style.css",
   "/assets/icon.svg",
+  "/assets/icon-192.png",
+  "/assets/icon-512.png",
+  "/assets/apple-touch-icon.png",
   "/data/problems.json",
   "/vendor/pyodide/pyodide.js",
   "/vendor/pyodide/pyodide.asm.js",
